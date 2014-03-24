@@ -12,6 +12,11 @@ instance eqTuple :: (Eq a, Eq b) => Eq (Tuple a b) where
   (==) (Tuple a1 b1) (Tuple a2 b2) = a1 == a2 && b1 == b2
   (/=) t1 t2 = not (t1 == t2)
 
+instance ordTuple :: (Ord a, Ord b) => Ord (Tuple a b) where
+  compare (Tuple a1 b1) (Tuple a2 b2) = case compare a1 a2 of
+    EQ -> compare b1 b2
+    other -> other
+
 instance functorTuple :: Functor (Tuple a) where
   (<$>) f (Tuple x y) = Tuple x (f y)
 
