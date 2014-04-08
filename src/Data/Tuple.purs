@@ -1,6 +1,7 @@
 module Data.Tuple where
 
 import Data.Array
+import Data.Monoid
 
 data Tuple a b = Tuple a b
 
@@ -18,6 +19,18 @@ instance ordTuple :: (Ord a, Ord b) => Ord (Tuple a b) where
 
 instance functorTuple :: Functor (Tuple a) where
   (<$>) f (Tuple x y) = Tuple x (f y)
+
+instance applyTuple :: (Semigroup a) => Apply (Tuple a) where
+  (<*>) (Tuple a1 f) (Tuple a2 x) = Tuple (a1 <> a2) (f x)
+
+instance applicativeTuple :: (Monoid a) => Applicative (Tuple a) where
+  pure = Tuple mempty
+
+instance bindTuple :: (Semigroup a) => Bind (Tuple a) where
+  (>>=) (Tuple a1 b) f = case f b of 
+    Tuple a2 c -> Tuple (a1 <> a2) c
+
+instance monadTuple :: (Monoid a) => Monad (Tuple a)
 
 fst :: forall a b. Tuple a b -> a
 fst (Tuple a _) = a
