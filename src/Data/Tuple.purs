@@ -1,6 +1,5 @@
 module Data.Tuple where
 
-import Prelude
 import Data.Array
 
 data Tuple a b = Tuple a b

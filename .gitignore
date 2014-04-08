@@ -1,4 +1,6 @@
+/bower_components/
+/node_modules/
 /js/
 /externs/
-/node_modules/
-/bower_components/
+/tmp/
+/.psci

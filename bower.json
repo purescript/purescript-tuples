@@ -17,5 +17,9 @@
   ],
   "dependencies": {
     "purescript-arrays": "*"
+  },
+  "devDependencies": {
+    "purescript-quickcheck": "*",
+    "purescript-math": "*"
   }
 }
