@@ -1,6 +1,5 @@
 {
   "name": "purescript-tuples",
-  "version": "0.0.0",
   "homepage": "https://github.com/purescript/purescript-tuples",
   "description": "Tuple data type and utility functions",
   "keywords": [
@@ -9,14 +8,18 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
-    "node_modules",
     "bower_components",
-    "examples",
-    "externs",
-    "js"
+    "node_modules",
+    "output",
+    "tests",
+    "tmp",
+    "bower.json",
+    "Gruntfile.js",
+    "package.json"
   ],
   "dependencies": {
-    "purescript-arrays": "*"
+    "purescript-arrays": "*",
+    "purescript-monoid": "*"
   },
   "devDependencies": {
     "purescript-quickcheck": "*",
