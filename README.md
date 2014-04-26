@@ -1,9 +1,12 @@
-# Data.Tuple
+# Module Documentation
+
+## Module Data.Tuple
 
 ### Types
 
     data Tuple a b where
       Tuple :: a -> b -> Tuple a b
+
 
 ### Type Class Instances
 
@@ -22,6 +25,7 @@
     instance ordTuple :: (Ord a, Ord b) => Ord (Tuple a b)
 
     instance showTuple :: (Show a, Show b) => Show (Tuple a b)
+
 
 ### Values
 
