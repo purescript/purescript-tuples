@@ -6,7 +6,7 @@ import Data.Monoid
 data Tuple a b = Tuple a b
 
 instance showTuple :: (Show a, Show b) => Show (Tuple a b) where
-  show (Tuple a b) = "Tuple(" ++ show a ++ ", " ++ show b ++ ")"
+  show (Tuple a b) = "Tuple (" ++ show a ++ ") (" ++ show b ++ ")"
 
 instance eqTuple :: (Eq a, Eq b) => Eq (Tuple a b) where
   (==) (Tuple a1 b1) (Tuple a2 b2) = a1 == a2 && b1 == b2
