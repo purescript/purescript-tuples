@@ -18,7 +18,8 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-arrays": "*",
-    "purescript-monoid": "*"
+    "purescript-arrays": "~0.2.0",
+    "purescript-monoid": "*",
+    "purescript-control": "~0.2.0"
   }
 }
