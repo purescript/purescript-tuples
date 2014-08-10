@@ -2,6 +2,7 @@ module Data.Tuple where
 
 import Data.Array
 import Data.Monoid
+import Control.Lazy
 
 data Tuple a b = Tuple a b
 
@@ -27,10 +28,19 @@ instance applicativeTuple :: (Monoid a) => Applicative (Tuple a) where
   pure = Tuple mempty
 
 instance bindTuple :: (Semigroup a) => Bind (Tuple a) where
-  (>>=) (Tuple a1 b) f = case f b of 
+  (>>=) (Tuple a1 b) f = case f b of
     Tuple a2 c -> Tuple (a1 <> a2) c
 
 instance monadTuple :: (Monoid a) => Monad (Tuple a)
+
+instance lazyTuple :: (Lazy a, Lazy b) => Lazy (Tuple a b) where
+  defer f = Tuple (defer $ \_ -> fst (f unit)) (defer $ \_ -> snd (f unit))
+
+instance lazyLazy1Tuple :: (Lazy1 l1, Lazy1 l2) => Lazy (Tuple (l1 a) (l2 b)) where
+  defer f = Tuple (defer1 $ \_ -> fst (f unit)) (defer1 $ \_ -> snd (f unit))
+
+instance lazyLazy2Tuple :: (Lazy2 l1, Lazy2 l2) => Lazy (Tuple (l1 a b) (l2 c d)) where
+  defer f = Tuple (defer2 $ \_ -> fst (f unit)) (defer2 $ \_ -> snd (f unit))
 
 fst :: forall a b. Tuple a b -> a
 fst (Tuple a _) = a
