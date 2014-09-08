@@ -1,8 +1,11 @@
 module Data.Tuple where
 
+import Control.Comonad
+import Control.Extend
+import Control.Lazy
+
 import Data.Array
 import Data.Monoid
-import Control.Lazy
 
 data Tuple a b = Tuple a b
 
@@ -18,6 +21,15 @@ instance ordTuple :: (Ord a, Ord b) => Ord (Tuple a b) where
     EQ -> compare b1 b2
     other -> other
 
+instance semigroupoidTuple :: Semigroupoid Tuple where
+  (<<<) (Tuple _ c) (Tuple a _) = Tuple a c
+
+instance semigroupTuple :: (Semigroup a, Semigroup b) => Semigroup (Tuple a b) where
+  (<>) (Tuple a1 b1) (Tuple a2 b2) = Tuple (a1 <> a2) (b1 <> b2)
+
+instance monoidTuple :: (Monoid a, Monoid b) => Monoid (Tuple a b) where
+  mempty = Tuple mempty mempty
+
 instance functorTuple :: Functor (Tuple a) where
   (<$>) f (Tuple x y) = Tuple x (f y)
 
@@ -32,6 +44,12 @@ instance bindTuple :: (Semigroup a) => Bind (Tuple a) where
     Tuple a2 c -> Tuple (a1 <> a2) c
 
 instance monadTuple :: (Monoid a) => Monad (Tuple a)
+
+instance extendTuple :: Extend (Tuple a) where
+  (<<=) f t@(Tuple a b) = Tuple a (f t)
+
+instance comonadTuple :: Comonad (Tuple a) where
+  extract = snd
 
 instance lazyTuple :: (Lazy a, Lazy b) => Lazy (Tuple a b) where
   defer f = Tuple (defer $ \_ -> fst (f unit)) (defer $ \_ -> snd (f unit))

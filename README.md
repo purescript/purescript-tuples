@@ -16,13 +16,29 @@
 
     instance bindTuple :: (Semigroup a) => Bind (Tuple a)
 
+    instance comonadTuple :: Comonad (Tuple a)
+
     instance eqTuple :: (Eq a, Eq b) => Eq (Tuple a b)
+
+    instance extendTuple :: Extend (Tuple a)
 
     instance functorTuple :: Functor (Tuple a)
 
+    instance lazyLazy1Tuple :: (Lazy1 l1, Lazy1 l2) => Lazy (Tuple (l1 a) (l2 b))
+
+    instance lazyLazy2Tuple :: (Lazy2 l1, Lazy2 l2) => Lazy (Tuple (l1 a b) (l2 c d))
+
+    instance lazyTuple :: (Lazy a, Lazy b) => Lazy (Tuple a b)
+
     instance monadTuple :: (Monoid a) => Monad (Tuple a)
 
+    instance monoidTuple :: (Monoid a, Monoid b) => Monoid (Tuple a b)
+
     instance ordTuple :: (Ord a, Ord b) => Ord (Tuple a b)
+
+    instance semigroupTuple :: (Semigroup a, Semigroup b) => Semigroup (Tuple a b)
+
+    instance semigroupoidTuple :: Semigroupoid Tuple
 
     instance showTuple :: (Show a, Show b) => Show (Tuple a b)
 
