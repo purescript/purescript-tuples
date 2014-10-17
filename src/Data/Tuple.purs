@@ -9,6 +9,12 @@ import Data.Monoid
 
 data Tuple a b = Tuple a b
 
+infixr 6 ~
+
+-- would be nice to use this as a type, too, e.g. a ~ b ~ c -> d
+(~) :: forall a b. a -> b -> Tuple a b
+(~) = Tuple
+
 instance showTuple :: (Show a, Show b) => Show (Tuple a b) where
   show (Tuple a b) = "Tuple (" ++ show a ++ ") (" ++ show b ++ ")"
 
