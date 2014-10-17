@@ -45,6 +45,8 @@
 
 ### Values
 
+    (~) :: forall a b. a -> b -> Tuple a b
+
     curry :: forall a b c. (Tuple a b -> c) -> a -> b -> c
 
     fst :: forall a b. Tuple a b -> a
