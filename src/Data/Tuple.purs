@@ -82,3 +82,35 @@ unzip [] = Tuple [] []
 
 swap :: forall a b. Tuple a b -> Tuple b a
 swap (Tuple a b) = Tuple b a
+
+-- ease pain of working with nested tuples
+con2 :: forall a b z. (a -> b -> z) -> (Tuple a b) -> z
+con2 f = \(Tuple a b) -> f a b
+
+con3 :: forall a b c z. (a -> b -> c -> z) -> (Tuple a (Tuple b c)) -> z
+con3 f = \(Tuple a (Tuple b c)) -> f a b c
+
+con4 :: forall a b c d z. (a -> b -> c -> d -> z) -> (Tuple a (Tuple b (Tuple c d))) -> z
+con4 f = \(Tuple a (Tuple b (Tuple c d))) -> f a b c d
+
+con5 :: forall a b c d e z. (a -> b -> c -> d -> e -> z) -> (Tuple a (Tuple b (Tuple c (Tuple d e)))) -> z
+con5 f = \(Tuple a (Tuple b (Tuple c (Tuple d e)))) -> f a b c d e
+
+con6 :: forall a b c d e f z. (a -> b -> c -> d -> e -> f -> z) -> (Tuple a (Tuple b (Tuple c (Tuple d (Tuple e f))))) -> z
+con6 f = \(Tuple a (Tuple b (Tuple c (Tuple d (Tuple e f'))))) -> f a b c d e f'
+
+con7 :: forall a b c d e f g z. (a -> b -> c -> d -> e -> f -> g -> z) -> (Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f g)))))) -> z
+con7 f = \(Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f' g)))))) -> f a b c d e f' g
+
+con8 :: forall a b c d e f g h z. (a -> b -> c -> d -> e -> f -> g -> h -> z) -> (Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f (Tuple g h))))))) -> z
+con8 f = \(Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f' (Tuple g h))))))) -> f a b c d e f' g h
+
+con9 :: forall a b c d e f g h i z. (a -> b -> c -> d -> e -> f -> g -> h -> i -> z) -> (Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f (Tuple g (Tuple h i)))))))) -> z
+con9 f = \(Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f' (Tuple g (Tuple h i)))))))) -> f a b c d e f' g h i
+
+con10 :: forall a b c d e f g h i j z. (a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> z) -> (Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f (Tuple g (Tuple h (Tuple i j))))))))) -> z
+con10 f = \(Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f' (Tuple g (Tuple h (Tuple i j))))))))) -> f a b c d e f' g h i j
+
+-- con6 MyRecord $ a /\ b /\ c /\ d /\ e /\ f
+infixr 6 /\
+(/\) a b = Tuple a b
