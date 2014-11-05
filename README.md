@@ -45,6 +45,27 @@
 
 ### Values
 
+    curry :: forall a b c. (Tuple a b -> c) -> a -> b -> c
+
+    fst :: forall a b. Tuple a b -> a
+
+    snd :: forall a b. Tuple a b -> b
+
+    swap :: forall a b. Tuple a b -> Tuple b a
+
+    uncurry :: forall a b c. (a -> b -> c) -> Tuple a b -> c
+
+    unzip :: forall a b. [Tuple a b] -> Tuple [a] [b]
+
+    zip :: forall a b. [a] -> [b] -> [Tuple a b]
+
+
+## Module Data.Tuple.Nested
+
+### Values
+
+    (/\) :: forall a b. a -> b -> Tuple a b
+
     con10 :: forall a b c d e f g h i j z. (a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f (Tuple g (Tuple h (Tuple i j)))))))) -> z
 
     con2 :: forall a b z. (a -> b -> z) -> Tuple a b -> z
@@ -62,17 +83,3 @@
     con8 :: forall a b c d e f g h z. (a -> b -> c -> d -> e -> f -> g -> h -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f (Tuple g h)))))) -> z
 
     con9 :: forall a b c d e f g h i z. (a -> b -> c -> d -> e -> f -> g -> h -> i -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f (Tuple g (Tuple h i))))))) -> z
-
-    curry :: forall a b c. (Tuple a b -> c) -> a -> b -> c
-
-    fst :: forall a b. Tuple a b -> a
-
-    snd :: forall a b. Tuple a b -> b
-
-    swap :: forall a b. Tuple a b -> Tuple b a
-
-    uncurry :: forall a b c. (a -> b -> c) -> Tuple a b -> c
-
-    unzip :: forall a b. [Tuple a b] -> Tuple [a] [b]
-
-    zip :: forall a b. [a] -> [b] -> [Tuple a b]
