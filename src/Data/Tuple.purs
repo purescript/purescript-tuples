@@ -1,5 +1,4 @@
 module Data.Tuple where
-
   import Control.Comonad
   import Control.Extend
   import Control.Lazy
