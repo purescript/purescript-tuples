@@ -58,3 +58,28 @@
     unzip :: forall a b. [Tuple a b] -> Tuple [a] [b]
 
     zip :: forall a b. [a] -> [b] -> [Tuple a b]
+
+
+## Module Data.Tuple.Nested
+
+### Values
+
+    (/\) :: forall a b. a -> b -> Tuple a b
+
+    con10 :: forall a b c d e f g h i j z. (a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f (Tuple g (Tuple h (Tuple i j)))))))) -> z
+
+    con2 :: forall a b z. (a -> b -> z) -> Tuple a b -> z
+
+    con3 :: forall a b c z. (a -> b -> c -> z) -> Tuple a (Tuple b c) -> z
+
+    con4 :: forall a b c d z. (a -> b -> c -> d -> z) -> Tuple a (Tuple b (Tuple c d)) -> z
+
+    con5 :: forall a b c d e z. (a -> b -> c -> d -> e -> z) -> Tuple a (Tuple b (Tuple c (Tuple d e))) -> z
+
+    con6 :: forall a b c d e f z. (a -> b -> c -> d -> e -> f -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e f)))) -> z
+
+    con7 :: forall a b c d e f g z. (a -> b -> c -> d -> e -> f -> g -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f g))))) -> z
+
+    con8 :: forall a b c d e f g h z. (a -> b -> c -> d -> e -> f -> g -> h -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f (Tuple g h)))))) -> z
+
+    con9 :: forall a b c d e f g h i z. (a -> b -> c -> d -> e -> f -> g -> h -> i -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f (Tuple g (Tuple h i))))))) -> z
