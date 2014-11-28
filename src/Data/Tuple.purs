@@ -65,6 +65,15 @@ module Data.Tuple where
   snd :: forall a b. Tuple a b -> b
   snd (Tuple _ b) = b
 
+  setFst :: forall a b a'. a' -> Tuple a b -> Tuple a' b
+  setFst a' (Tuple _ b) = Tuple a' b
+
+  setSnd :: forall a b b'. b' -> Tuple a b -> Tuple a b'
+  setSnd b'   (Tuple a _) = Tuple a b'
+
+  mapSnd :: forall a b b'. (b -> b') -> Tuple a b -> Tuple a b'
+  mapSnd f (Tuple a b) = Tuple a (f b)
+
   curry :: forall a b c. (Tuple a b -> c) -> a -> b -> c
   curry f a b = f (Tuple a b)
 
