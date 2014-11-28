@@ -49,6 +49,8 @@
 
     fst :: forall a b. Tuple a b -> a
 
+    mapFst :: forall a b a'. (a -> a') -> Tuple a b -> Tuple a' b
+
     mapSnd :: forall a b b'. (b -> b') -> Tuple a b -> Tuple a b'
 
     setFst :: forall a b a'. a' -> Tuple a b -> Tuple a' b
