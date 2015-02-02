@@ -81,7 +81,7 @@
     unzip :: forall f a b. (Functor f) => f (Tuple a b) -> Tuple (f a) (f b)
 
 
-    zip :: forall f a b. (Apply f) => f a -> f b -> f (Tuple a b)
+    zip :: forall a b. [a] -> [b] -> [Tuple a b]
 
 
 ## Module Data.Tuple.Nested

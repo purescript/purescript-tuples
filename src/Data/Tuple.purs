@@ -3,6 +3,7 @@ module Data.Tuple where
   import Control.Extend
   import Control.Lazy
 
+  import Data.Array
   import Data.Monoid
 
   data Tuple a b = Tuple a b
@@ -70,8 +71,8 @@ module Data.Tuple where
   uncurry :: forall a b c. (a -> b -> c) -> Tuple a b -> c
   uncurry f (Tuple a b) = f a b
 
-  zip :: forall f a b. (Apply f) => f a -> f b -> f (Tuple a b)
-  zip fa fb = Tuple <$> fa <*> fb
+  zip :: forall a b. [a] -> [b] -> [Tuple a b]
+  zip = zipWith Tuple
 
   unzip :: forall f a b. (Functor f) => f (Tuple a b) -> Tuple (f a) (f b)
   unzip f = Tuple (fst <$> f) (snd <$> f)
