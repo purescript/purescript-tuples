@@ -74,10 +74,8 @@ module Data.Tuple where
   zip :: forall a b. [a] -> [b] -> [Tuple a b]
   zip = zipWith Tuple
 
-  unzip :: forall a b. [Tuple a b] -> Tuple [a] [b]
-  unzip ((Tuple a b):ts) = case unzip ts of
-    Tuple as bs -> Tuple (a : as) (b : bs)
-  unzip [] = Tuple [] []
+  unzip :: forall f a b. (Functor f) => f (Tuple a b) -> Tuple (f a) (f b)
+  unzip f = Tuple (fst <$> f) (snd <$> f)
 
   swap :: forall a b. Tuple a b -> Tuple b a
   swap (Tuple a b) = Tuple b a
