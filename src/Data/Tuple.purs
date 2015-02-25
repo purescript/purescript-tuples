@@ -74,6 +74,9 @@ module Data.Tuple where
   zip :: forall a b. [a] -> [b] -> [Tuple a b]
   zip = zipWith Tuple
 
+  zipWithIndex :: forall a. [a] -> [Tuple a Number]
+  zipWithIndex as = zip as (range 0 (length as - 1))
+
   unzip :: forall a b. [Tuple a b] -> Tuple [a] [b]
   unzip ((Tuple a b):ts) = case unzip ts of
     Tuple as bs -> Tuple (a : as) (b : bs)
