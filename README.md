@@ -12,7 +12,7 @@ data Tuple a b
   = Tuple a b
 ```
 
-A simple product type for wrapping pairs of values.
+A simple product type for wrapping a pair of component values.
 
 #### `showTuple`
 
@@ -20,6 +20,8 @@ A simple product type for wrapping pairs of values.
 instance showTuple :: (Show a, Show b) => Show (Tuple a b)
 ```
 
+Allows `Tuple`s to be rendered as a string with `show` whenever there are
+`Show` instances for both component types.
 
 #### `eqTuple`
 
@@ -27,6 +29,8 @@ instance showTuple :: (Show a, Show b) => Show (Tuple a b)
 instance eqTuple :: (Eq a, Eq b) => Eq (Tuple a b)
 ```
 
+Allows `Tuple`s to be checked for equality with `==` and `/=` whenever
+there are `Eq` instances for both component types.
 
 #### `ordTuple`
 
@@ -34,6 +38,10 @@ instance eqTuple :: (Eq a, Eq b) => Eq (Tuple a b)
 instance ordTuple :: (Ord a, Ord b) => Ord (Tuple a b)
 ```
 
+Allows `Tuple`s to be compared with `compare`, `>`, `>=`, `<` and `<=`
+whenever there are `Ord` instances for both component types. To obtain
+the result, the `fst`s are `compare`d, and if they are `EQ`ual, the
+`snd`s are `compare`d.
 
 #### `semigroupoidTuple`
 
@@ -48,6 +56,12 @@ instance semigroupoidTuple :: Semigroupoid Tuple
 instance semigroupTuple :: (Semigroup a, Semigroup b) => Semigroup (Tuple a b)
 ```
 
+The `Semigroup` instance enables use of the associative operator `<>` on
+`Tuple`s whenever there are `Semigroup` instances for the component types.
+The `<>` operator is applied pairwise, so:
+```purescript
+(Tuple a1 b1) <> (Tuple a2 b2) = Tuple (a1 <> a2) (b1 <> b2)
+```
 
 #### `monoidTuple`
 
@@ -62,6 +76,12 @@ instance monoidTuple :: (Monoid a, Monoid b) => Monoid (Tuple a b)
 instance functorTuple :: Functor (Tuple a)
 ```
 
+The `Functor` instance allows functions to transform the contents of a
+`Tuple` with the `<$>` operator, applying the function to the second
+component, so:
+```purescript
+f <$> (Tuple x y) = Tuple x (f y)
+````
 
 #### `applyTuple`
 
@@ -69,6 +89,12 @@ instance functorTuple :: Functor (Tuple a)
 instance applyTuple :: (Semigroup a) => Apply (Tuple a)
 ```
 
+The `Functor` instance allows functions to transform the contents of a
+`Tuple` with the `<*>` operator whenever there is a `Semigroup` instance
+for the `fst` component, so:
+```purescript
+(Tuple a1 f) <*> (Tuple a2 x) == Tuple (a1 <> a2) (f x)
+```
 
 #### `applicativeTuple`
 
@@ -267,7 +293,7 @@ Given a function of 10 arguments, return a function that accepts a 10-tuple.
 (/\) :: forall a b. a -> b -> Tuple a b
 ```
 
-Shorthand for constructing nested tuples.
+Shorthand for constructing n-tuples as nested pairs.
 `a /\ b /\ c /\ d` becomes `Tuple a (Tuple b (Tuple c d))`
 
 

@@ -7,16 +7,24 @@ module Data.Tuple where
   import Data.Array
   import Data.Monoid
 
-  -- | A simple product type for wrapping pairs of values.
+  -- | A simple product type for wrapping a pair of component values.
   data Tuple a b = Tuple a b
 
+  -- | Allows `Tuple`s to be rendered as a string with `show` whenever there are
+  -- | `Show` instances for both component types.
   instance showTuple :: (Show a, Show b) => Show (Tuple a b) where
     show (Tuple a b) = "Tuple (" ++ show a ++ ") (" ++ show b ++ ")"
 
+  -- | Allows `Tuple`s to be checked for equality with `==` and `/=` whenever
+  -- | there are `Eq` instances for both component types.
   instance eqTuple :: (Eq a, Eq b) => Eq (Tuple a b) where
     (==) (Tuple a1 b1) (Tuple a2 b2) = a1 == a2 && b1 == b2
     (/=) t1 t2 = not (t1 == t2)
 
+  -- | Allows `Tuple`s to be compared with `compare`, `>`, `>=`, `<` and `<=`
+  -- | whenever there are `Ord` instances for both component types. To obtain
+  -- | the result, the `fst`s are `compare`d, and if they are `EQ`ual, the
+  -- | `snd`s are `compare`d.
   instance ordTuple :: (Ord a, Ord b) => Ord (Tuple a b) where
     compare (Tuple a1 b1) (Tuple a2 b2) = case compare a1 a2 of
       EQ -> compare b1 b2
@@ -25,15 +33,33 @@ module Data.Tuple where
   instance semigroupoidTuple :: Semigroupoid Tuple where
     (<<<) (Tuple _ c) (Tuple a _) = Tuple a c
 
+  -- | The `Semigroup` instance enables use of the associative operator `<>` on
+  -- | `Tuple`s whenever there are `Semigroup` instances for the component types.
+  -- | The `<>` operator is applied pairwise, so:
+  -- | ```purescript
+  -- | (Tuple a1 b1) <> (Tuple a2 b2) = Tuple (a1 <> a2) (b1 <> b2)
+  -- | ```
   instance semigroupTuple :: (Semigroup a, Semigroup b) => Semigroup (Tuple a b) where
     (<>) (Tuple a1 b1) (Tuple a2 b2) = Tuple (a1 <> a2) (b1 <> b2)
 
   instance monoidTuple :: (Monoid a, Monoid b) => Monoid (Tuple a b) where
     mempty = Tuple mempty mempty
 
+  -- | The `Functor` instance allows functions to transform the contents of a
+  -- | `Tuple` with the `<$>` operator, applying the function to the second
+  -- | component, so:
+  -- | ```purescript
+  -- | f <$> (Tuple x y) = Tuple x (f y)
+  -- | ````
   instance functorTuple :: Functor (Tuple a) where
     (<$>) f (Tuple x y) = Tuple x (f y)
 
+  -- | The `Functor` instance allows functions to transform the contents of a
+  -- | `Tuple` with the `<*>` operator whenever there is a `Semigroup` instance
+  -- | for the `fst` component, so:
+  -- | ```purescript
+  -- | (Tuple a1 f) <*> (Tuple a2 x) == Tuple (a1 <> a2) (f x)
+  -- | ```
   instance applyTuple :: (Semigroup a) => Apply (Tuple a) where
     (<*>) (Tuple a1 f) (Tuple a2 x) = Tuple (a1 <> a2) (f x)
 
@@ -135,7 +161,7 @@ module Data.Tuple.Nested where
 
   infixr 6 /\
 
-  -- | Shorthand for constructing nested tuples.
+  -- | Shorthand for constructing n-tuples as nested pairs.
   -- | `a /\ b /\ c /\ d` becomes `Tuple a (Tuple b (Tuple c d))`
   (/\) :: forall a b. a -> b -> Tuple a b
   (/\) a b = Tuple a b
