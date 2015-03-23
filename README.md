@@ -57,8 +57,8 @@ instance semigroupTuple :: (Semigroup a, Semigroup b) => Semigroup (Tuple a b)
 ```
 
 The `Semigroup` instance enables use of the associative operator `<>` on
-`Tuple`s whenever there are `Semigroup` instances for the component types.
-The `<>` operator is applied pairwise, so:
+`Tuple`s whenever there are `Semigroup` instances for the component
+types. The `<>` operator is applied pairwise, so:
 ```purescript
 (Tuple a1 b1) <> (Tuple a2 b2) = Tuple (a1 <> a2) (b1 <> b2)
 ```
@@ -191,7 +191,7 @@ zip :: forall a b. [a] -> [b] -> [Tuple a b]
 ```
 
 Rakes two lists and returns a list of corresponding pairs.
-If one input list is short, excess components of the longer list are discarded.
+If one input list is short, excess elements of the longer list are discarded.
 
 #### `unzip`
 
@@ -199,7 +199,8 @@ If one input list is short, excess components of the longer list are discarded.
 unzip :: forall a b. [Tuple a b] -> Tuple [a] [b]
 ```
 
-Transforms a list of pairs into a list of first components and a list of second components.
+Transforms a list of pairs into a list of first components and a list of
+second components.
 
 #### `swap`
 
@@ -213,7 +214,8 @@ Exchange the first and second components of a tuple.
 ## Module Data.Tuple.Nested
 
 
-Utilities for n-tuples: sequences longer than two components built from nested pairs.
+Utilities for n-tuples: sequences longer than two components built from
+nested pairs.
 
 #### `con2`
 

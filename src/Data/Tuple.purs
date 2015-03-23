@@ -34,8 +34,8 @@ module Data.Tuple where
     (<<<) (Tuple _ c) (Tuple a _) = Tuple a c
 
   -- | The `Semigroup` instance enables use of the associative operator `<>` on
-  -- | `Tuple`s whenever there are `Semigroup` instances for the component types.
-  -- | The `<>` operator is applied pairwise, so:
+  -- | `Tuple`s whenever there are `Semigroup` instances for the component
+  -- | types. The `<>` operator is applied pairwise, so:
   -- | ```purescript
   -- | (Tuple a1 b1) <> (Tuple a2 b2) = Tuple (a1 <> a2) (b1 <> b2)
   -- | ```
@@ -104,11 +104,12 @@ module Data.Tuple where
   uncurry f (Tuple a b) = f a b
 
   -- | Rakes two lists and returns a list of corresponding pairs.
-  -- | If one input list is short, excess components of the longer list are discarded.
+  -- | If one input list is short, excess elements of the longer list are discarded.
   zip :: forall a b. [a] -> [b] -> [Tuple a b]
   zip = zipWith Tuple
 
-  -- | Transforms a list of pairs into a list of first components and a list of second components.
+  -- | Transforms a list of pairs into a list of first components and a list of
+  -- | second components.
   unzip :: forall a b. [Tuple a b] -> Tuple [a] [b]
   unzip ((Tuple a b):ts) = case unzip ts of
     Tuple as bs -> Tuple (a : as) (b : bs)
@@ -119,7 +120,8 @@ module Data.Tuple where
   swap (Tuple a b) = Tuple b a
 
 
--- | Utilities for n-tuples: sequences longer than two components built from nested pairs.
+-- | Utilities for n-tuples: sequences longer than two components built from
+-- | nested pairs.
 module Data.Tuple.Nested where
   import Data.Tuple
 
