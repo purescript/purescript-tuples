@@ -213,63 +213,63 @@ Exchange the first and second components of a tuple.
 #### `Tuple2`
 
 ``` purescript
-type Tuple2 a b = Tuple a b
+type Tuple2 a z = Tuple a z
 ```
 
 
 #### `Tuple3`
 
 ``` purescript
-type Tuple3 a b c = Tuple a (Tuple2 b c)
+type Tuple3 a b z = Tuple (Tuple2 a b) z
 ```
 
 
 #### `Tuple4`
 
 ``` purescript
-type Tuple4 a b c d = Tuple a (Tuple3 b c d)
+type Tuple4 a b c z = Tuple (Tuple3 a b c) z
 ```
 
 
 #### `Tuple5`
 
 ``` purescript
-type Tuple5 a b c d e = Tuple a (Tuple4 b c d e)
+type Tuple5 a b c d z = Tuple (Tuple4 a b c d) z
 ```
 
 
 #### `Tuple6`
 
 ``` purescript
-type Tuple6 a b c d e f = Tuple a (Tuple5 b c d e f)
+type Tuple6 a b c d e z = Tuple (Tuple5 a b c d e) z
 ```
 
 
 #### `Tuple7`
 
 ``` purescript
-type Tuple7 a b c d e f g = Tuple a (Tuple6 b c d e f g)
+type Tuple7 a b c d e f z = Tuple (Tuple6 a b c d e f) z
 ```
 
 
 #### `Tuple8`
 
 ``` purescript
-type Tuple8 a b c d e f g h = Tuple a (Tuple7 b c d e f g h)
+type Tuple8 a b c d e f g z = Tuple (Tuple7 a b c d e f g) z
 ```
 
 
 #### `Tuple9`
 
 ``` purescript
-type Tuple9 a b c d e f g h i = Tuple a (Tuple8 b c d e f g h i)
+type Tuple9 a b c d e f g h z = Tuple (Tuple8 a b c d e f g h) z
 ```
 
 
 #### `Tuple10`
 
 ``` purescript
-type Tuple10 a b c d e f g h i j = Tuple a (Tuple9 b c d e f g h i j)
+type Tuple10 a b c d e f g h i z = Tuple (Tuple9 a b c d e f g h i) z
 ```
 
 
@@ -352,4 +352,4 @@ Given a function of 10 arguments, return a function that accepts a 10-tuple.
 ```
 
 Shorthand for constructing n-tuples as nested pairs.
-`a /\ b /\ c /\ d` becomes `Tuple a (Tuple b (Tuple c d))`
+`a /\ b /\ c /\ d` becomes `Tuple (Tuple (Tuple a b) c ) d`
