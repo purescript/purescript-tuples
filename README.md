@@ -2,9 +2,6 @@
 
 ## Module Data.Tuple
 
-
-A data type and functions for working with ordered pairs and sequences of values.
-
 #### `Tuple`
 
 ``` purescript
@@ -213,78 +210,137 @@ Exchange the first and second components of a tuple.
 
 ## Module Data.Tuple.Nested
 
-
-Utilities for n-tuples: sequences longer than two components built from
-nested pairs.
-
-#### `con2`
+#### `Tuple2`
 
 ``` purescript
-con2 :: forall a b z. (a -> b -> z) -> Tuple a b -> z
+type Tuple2 a b = Tuple a b
+```
+
+
+#### `Tuple3`
+
+``` purescript
+type Tuple3 a b c = Tuple a (Tuple2 b c)
+```
+
+
+#### `Tuple4`
+
+``` purescript
+type Tuple4 a b c d = Tuple a (Tuple3 b c d)
+```
+
+
+#### `Tuple5`
+
+``` purescript
+type Tuple5 a b c d e = Tuple a (Tuple4 b c d e)
+```
+
+
+#### `Tuple6`
+
+``` purescript
+type Tuple6 a b c d e f = Tuple a (Tuple5 b c d e f)
+```
+
+
+#### `Tuple7`
+
+``` purescript
+type Tuple7 a b c d e f g = Tuple a (Tuple6 b c d e f g)
+```
+
+
+#### `Tuple8`
+
+``` purescript
+type Tuple8 a b c d e f g h = Tuple a (Tuple7 b c d e f g h)
+```
+
+
+#### `Tuple9`
+
+``` purescript
+type Tuple9 a b c d e f g h i = Tuple a (Tuple8 b c d e f g h i)
+```
+
+
+#### `Tuple10`
+
+``` purescript
+type Tuple10 a b c d e f g h i j = Tuple a (Tuple9 b c d e f g h i j)
+```
+
+
+#### `tuple2`
+
+``` purescript
+tuple2 :: forall a b z. (a -> b -> z) -> Tuple2 a b -> z
 ```
 
 Given a function of 2 arguments, return a function that accepts a 2-tuple.
 
-#### `con3`
+#### `tuple3`
 
 ``` purescript
-con3 :: forall a b c z. (a -> b -> c -> z) -> Tuple a (Tuple b c) -> z
+tuple3 :: forall a b c z. (a -> b -> c -> z) -> Tuple3 a b c -> z
 ```
 
 Given a function of 3 arguments, return a function that accepts a 3-tuple.
 
-#### `con4`
+#### `tuple4`
 
 ``` purescript
-con4 :: forall a b c d z. (a -> b -> c -> d -> z) -> Tuple a (Tuple b (Tuple c d)) -> z
+tuple4 :: forall a b c d z. (a -> b -> c -> d -> z) -> Tuple4 a b c d -> z
 ```
 
 Given a function of 4 arguments, return a function that accepts a 4-tuple.
 
-#### `con5`
+#### `tuple5`
 
 ``` purescript
-con5 :: forall a b c d e z. (a -> b -> c -> d -> e -> z) -> Tuple a (Tuple b (Tuple c (Tuple d e))) -> z
+tuple5 :: forall a b c d e z. (a -> b -> c -> d -> e -> z) -> Tuple5 a b c d e -> z
 ```
 
 Given a function of 5 arguments, return a function that accepts a 5-tuple.
 
-#### `con6`
+#### `tuple6`
 
 ``` purescript
-con6 :: forall a b c d e f z. (a -> b -> c -> d -> e -> f -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e f)))) -> z
+tuple6 :: forall a b c d e f z. (a -> b -> c -> d -> e -> f -> z) -> Tuple6 a b c d e f -> z
 ```
 
 Given a function of 6 arguments, return a function that accepts a 6-tuple.
 
-#### `con7`
+#### `tuple7`
 
 ``` purescript
-con7 :: forall a b c d e f g z. (a -> b -> c -> d -> e -> f -> g -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f g))))) -> z
+tuple7 :: forall a b c d e f g z. (a -> b -> c -> d -> e -> f -> g -> z) -> Tuple7 a b c d e f g -> z
 ```
 
 Given a function of 7 arguments, return a function that accepts a 7-tuple.
 
-#### `con8`
+#### `tuple8`
 
 ``` purescript
-con8 :: forall a b c d e f g h z. (a -> b -> c -> d -> e -> f -> g -> h -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f (Tuple g h)))))) -> z
+tuple8 :: forall a b c d e f g h z. (a -> b -> c -> d -> e -> f -> g -> h -> z) -> Tuple8 a b c d e f g h -> z
 ```
 
 Given a function of 8 arguments, return a function that accepts a 8-tuple.
 
-#### `con9`
+#### `tuple9`
 
 ``` purescript
-con9 :: forall a b c d e f g h i z. (a -> b -> c -> d -> e -> f -> g -> h -> i -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f (Tuple g (Tuple h i))))))) -> z
+tuple9 :: forall a b c d e f g h i z. (a -> b -> c -> d -> e -> f -> g -> h -> i -> z) -> Tuple9 a b c d e f g h i -> z
 ```
 
 Given a function of 9 arguments, return a function that accepts a 9-tuple.
 
-#### `con10`
+#### `tuple10`
 
 ``` purescript
-con10 :: forall a b c d e f g h i j z. (a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> z) -> Tuple a (Tuple b (Tuple c (Tuple d (Tuple e (Tuple f (Tuple g (Tuple h (Tuple i j)))))))) -> z
+tuple10 :: forall a b c d e f g h i j z. (a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> z) -> Tuple10 a b c d e f g h i j -> z
 ```
 
 Given a function of 10 arguments, return a function that accepts a 10-tuple.
@@ -297,6 +353,3 @@ Given a function of 10 arguments, return a function that accepts a 10-tuple.
 
 Shorthand for constructing n-tuples as nested pairs.
 `a /\ b /\ c /\ d` becomes `Tuple a (Tuple b (Tuple c d))`
-
-
-
