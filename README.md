@@ -273,6 +273,78 @@ type Tuple10 a b c d e f g h i z = Tuple (Tuple9 a b c d e f g h i) z
 ```
 
 
+#### `entuple2`
+
+``` purescript
+entuple2 :: forall a b. a -> b -> Tuple2 a b
+```
+
+Given 2 values, creates a nested 2-tuple.
+
+#### `entuple3`
+
+``` purescript
+entuple3 :: forall a b c. a -> b -> c -> Tuple3 a b c
+```
+
+Given 3 values, creates a nested 3-tuple.
+
+#### `entuple4`
+
+``` purescript
+entuple4 :: forall a b c d. a -> b -> c -> d -> Tuple4 a b c d
+```
+
+Given 4 values, creates a nested 4-tuple.
+
+#### `entuple5`
+
+``` purescript
+entuple5 :: forall a b c d e. a -> b -> c -> d -> e -> Tuple5 a b c d e
+```
+
+Given 5 values, creates a nested 5-tuple.
+
+#### `entuple6`
+
+``` purescript
+entuple6 :: forall a b c d e f. a -> b -> c -> d -> e -> f -> Tuple6 a b c d e f
+```
+
+Given 6 values, creates a nested 6-tuple.
+
+#### `entuple7`
+
+``` purescript
+entuple7 :: forall a b c d e f g. a -> b -> c -> d -> e -> f -> g -> Tuple7 a b c d e f g
+```
+
+Given 7 values, creates a nested 7-tuple.
+
+#### `entuple8`
+
+``` purescript
+entuple8 :: forall a b c d e f g h. a -> b -> c -> d -> e -> f -> g -> h -> Tuple8 a b c d e f g h
+```
+
+Given 8 values, creates a nested 8-tuple.
+
+#### `entuple9`
+
+``` purescript
+entuple9 :: forall a b c d e f g h i. a -> b -> c -> d -> e -> f -> g -> h -> i -> Tuple9 a b c d e f g h i
+```
+
+Given 9 values, creates a nested 9-tuple.
+
+#### `entuple10`
+
+``` purescript
+entuple10 :: forall a b c d e f g h i j. a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> Tuple10 a b c d e f g h i j
+```
+
+Given 10 values, creates a nested 10-tuple.
+
 #### `tuple2`
 
 ``` purescript
@@ -280,6 +352,14 @@ tuple2 :: forall a b z. (a -> b -> z) -> Tuple2 a b -> z
 ```
 
 Given a function of 2 arguments, return a function that accepts a 2-tuple.
+
+#### `unTuple2`
+
+``` purescript
+unTuple2 :: forall a b z. (Tuple2 a b -> z) -> a -> b -> z
+```
+
+Given a function that accepts a 2-tuple, return a function of 2 arguments.
 
 #### `tuple3`
 
@@ -289,6 +369,14 @@ tuple3 :: forall a b c z. (a -> b -> c -> z) -> Tuple3 a b c -> z
 
 Given a function of 3 arguments, return a function that accepts a 3-tuple.
 
+#### `unTuple3`
+
+``` purescript
+unTuple3 :: forall a b c z. (Tuple3 a b c -> z) -> a -> b -> c -> z
+```
+
+Given a function that accepts a 3-tuple, return a function of 3 arguments.
+
 #### `tuple4`
 
 ``` purescript
@@ -296,6 +384,14 @@ tuple4 :: forall a b c d z. (a -> b -> c -> d -> z) -> Tuple4 a b c d -> z
 ```
 
 Given a function of 4 arguments, return a function that accepts a 4-tuple.
+
+#### `unTuple4`
+
+``` purescript
+unTuple4 :: forall a b c d z. (Tuple4 a b c d -> z) -> a -> b -> c -> d -> z
+```
+
+Given a function that accepts a 4-tuple, return a function of 4 arguments.
 
 #### `tuple5`
 
@@ -305,6 +401,14 @@ tuple5 :: forall a b c d e z. (a -> b -> c -> d -> e -> z) -> Tuple5 a b c d e -
 
 Given a function of 5 arguments, return a function that accepts a 5-tuple.
 
+#### `unTuple5`
+
+``` purescript
+unTuple5 :: forall a b c d e z. (Tuple5 a b c d e -> z) -> a -> b -> c -> d -> e -> z
+```
+
+Given a function that accepts a 5-tuple, return a function of 5 arguments.
+
 #### `tuple6`
 
 ``` purescript
@@ -312,6 +416,14 @@ tuple6 :: forall a b c d e f z. (a -> b -> c -> d -> e -> f -> z) -> Tuple6 a b 
 ```
 
 Given a function of 6 arguments, return a function that accepts a 6-tuple.
+
+#### `unTuple6`
+
+``` purescript
+unTuple6 :: forall a b c d e f z. (Tuple6 a b c d e f -> z) -> a -> b -> c -> d -> e -> f -> z
+```
+
+Given a function that accepts a 6-tuple, return a function of 6 arguments.
 
 #### `tuple7`
 
@@ -321,6 +433,14 @@ tuple7 :: forall a b c d e f g z. (a -> b -> c -> d -> e -> f -> g -> z) -> Tupl
 
 Given a function of 7 arguments, return a function that accepts a 7-tuple.
 
+#### `unTuple7`
+
+``` purescript
+unTuple7 :: forall a b c d e f g z. (Tuple7 a b c d e f g -> z) -> a -> b -> c -> d -> e -> f -> g -> z
+```
+
+Given a function that accepts a 7-tuple, return a function of 7 arguments.
+
 #### `tuple8`
 
 ``` purescript
@@ -328,6 +448,14 @@ tuple8 :: forall a b c d e f g h z. (a -> b -> c -> d -> e -> f -> g -> h -> z) 
 ```
 
 Given a function of 8 arguments, return a function that accepts a 8-tuple.
+
+#### `unTuple8`
+
+``` purescript
+unTuple8 :: forall a b c d e f g h z. (Tuple8 a b c d e f g h -> z) -> a -> b -> c -> d -> e -> f -> g -> h -> z
+```
+
+Given a function that accepts a 8-tuple, return a function of 8 arguments.
 
 #### `tuple9`
 
@@ -337,6 +465,14 @@ tuple9 :: forall a b c d e f g h i z. (a -> b -> c -> d -> e -> f -> g -> h -> i
 
 Given a function of 9 arguments, return a function that accepts a 9-tuple.
 
+#### `unTuple9`
+
+``` purescript
+unTuple9 :: forall a b c d e f g h i z. (Tuple9 a b c d e f g h i -> z) -> a -> b -> c -> d -> e -> f -> g -> h -> i -> z
+```
+
+Given a function that accepts a 9-tuple, return a function of 9 arguments.
+
 #### `tuple10`
 
 ``` purescript
@@ -344,6 +480,14 @@ tuple10 :: forall a b c d e f g h i j z. (a -> b -> c -> d -> e -> f -> g -> h -
 ```
 
 Given a function of 10 arguments, return a function that accepts a 10-tuple.
+
+#### `unTuple10`
+
+``` purescript
+unTuple10 :: forall a b c d e f g h i j z. (Tuple10 a b c d e f g h i j -> z) -> a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> z
+```
+
+Given a function that accepts a 10-tuple, return a function of 10 arguments.
 
 #### `(/\)`
 
