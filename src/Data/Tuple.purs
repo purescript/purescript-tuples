@@ -141,7 +141,7 @@ module Data.Tuple where
 -- | makeAddress = curry4 makeAddressT
 -- | 
 -- | tupleAddress :: Address -> Tuple4 String City (Maybe Province) Country
--- | tupleAddress (Address a b c d) = entuple4 a b c d
+-- | tupleAddress (Address a b c d) = tuple4 a b c d
 -- | ```
 module Data.Tuple.Nested where
   import Data.Tuple
@@ -157,40 +157,40 @@ module Data.Tuple.Nested where
   type Tuple10 a b c d e f g h i z = Tuple (Tuple9 a b c d e f g h i) z
 
   -- | Given 2 values, creates a nested 2-tuple.
-  entuple2 :: forall a b. a -> b -> Tuple2 a b
-  entuple2 = Tuple
+  tuple2 :: forall a b. a -> b -> Tuple2 a b
+  tuple2 = Tuple
 
   -- | Given 3 values, creates a nested 3-tuple.
-  entuple3 :: forall a b c. a -> b -> c -> Tuple3 a b c
-  entuple3 a b c = entuple2 (entuple2 a b) c
+  tuple3 :: forall a b c. a -> b -> c -> Tuple3 a b c
+  tuple3 a b c = tuple2 (tuple2 a b) c
 
   -- | Given 4 values, creates a nested 4-tuple.
-  entuple4 :: forall a b c d. a -> b -> c -> d -> Tuple4 a b c d
-  entuple4 a b c d = entuple2 (entuple3 a b c) d
+  tuple4 :: forall a b c d. a -> b -> c -> d -> Tuple4 a b c d
+  tuple4 a b c d = tuple2 (tuple3 a b c) d
 
   -- | Given 5 values, creates a nested 5-tuple.
-  entuple5 :: forall a b c d e. a -> b -> c -> d -> e -> Tuple5 a b c d e
-  entuple5 a b c d e = entuple2 (entuple4 a b c d) e
+  tuple5 :: forall a b c d e. a -> b -> c -> d -> e -> Tuple5 a b c d e
+  tuple5 a b c d e = tuple2 (tuple4 a b c d) e
 
   -- | Given 6 values, creates a nested 6-tuple.
-  entuple6 :: forall a b c d e f. a -> b -> c -> d -> e -> f -> Tuple6 a b c d e f
-  entuple6 a b c d e f = entuple2 (entuple5 a b c d e) f
+  tuple6 :: forall a b c d e f. a -> b -> c -> d -> e -> f -> Tuple6 a b c d e f
+  tuple6 a b c d e f = tuple2 (tuple5 a b c d e) f
 
   -- | Given 7 values, creates a nested 7-tuple.
-  entuple7 :: forall a b c d e f g. a -> b -> c -> d -> e -> f -> g -> Tuple7 a b c d e f g
-  entuple7 a b c d e f g = entuple2 (entuple6 a b c d e f) g
+  tuple7 :: forall a b c d e f g. a -> b -> c -> d -> e -> f -> g -> Tuple7 a b c d e f g
+  tuple7 a b c d e f g = tuple2 (tuple6 a b c d e f) g
 
   -- | Given 8 values, creates a nested 8-tuple.
-  entuple8 :: forall a b c d e f g h. a -> b -> c -> d -> e -> f -> g -> h -> Tuple8 a b c d e f g h
-  entuple8 a b c d e f g h = entuple2 (entuple7 a b c d e f g) h
+  tuple8 :: forall a b c d e f g h. a -> b -> c -> d -> e -> f -> g -> h -> Tuple8 a b c d e f g h
+  tuple8 a b c d e f g h = tuple2 (tuple7 a b c d e f g) h
 
   -- | Given 9 values, creates a nested 9-tuple.
-  entuple9 :: forall a b c d e f g h i. a -> b -> c -> d -> e -> f -> g -> h -> i -> Tuple9 a b c d e f g h i
-  entuple9 a b c d e f g h i = entuple2 (entuple8 a b c d e f g h) i
+  tuple9 :: forall a b c d e f g h i. a -> b -> c -> d -> e -> f -> g -> h -> i -> Tuple9 a b c d e f g h i
+  tuple9 a b c d e f g h i = tuple2 (tuple8 a b c d e f g h) i
 
   -- | Given 10 values, creates a nested 10-tuple.
-  entuple10 :: forall a b c d e f g h i j. a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> Tuple10 a b c d e f g h i j
-  entuple10 a b c d e f g h i j = entuple2 (entuple9 a b c d e f g h i) j
+  tuple10 :: forall a b c d e f g h i j. a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> Tuple10 a b c d e f g h i j
+  tuple10 a b c d e f g h i j = tuple2 (tuple9 a b c d e f g h i) j
   
   -- | Given a function of 2 arguments, return a function that accepts a 2-tuple.
   uncurry2 :: forall a b z. (a -> b -> z) -> Tuple2 a b -> z
@@ -198,7 +198,7 @@ module Data.Tuple.Nested where
 
   -- | Given a function that accepts a 2-tuple, return a function of 2 arguments.
   curry2 :: forall a b z. (Tuple2 a b -> z) -> a -> b -> z
-  curry2 f a b = f (entuple2 a b)
+  curry2 f a b = f (tuple2 a b)
 
   -- | Given a function of 3 arguments, return a function that accepts a 3-tuple.
   uncurry3 :: forall a b c z. (a -> b -> c -> z) -> Tuple3 a b c -> z
@@ -206,7 +206,7 @@ module Data.Tuple.Nested where
 
   -- | Given a function that accepts a 3-tuple, return a function of 3 arguments.
   curry3 :: forall a b c z. (Tuple3 a b c -> z) -> a -> b -> c -> z
-  curry3 f a b c = f (entuple3 a b c)
+  curry3 f a b c = f (tuple3 a b c)
 
   -- | Given a function of 4 arguments, return a function that accepts a 4-tuple.
   uncurry4 :: forall a b c d z. (a -> b -> c -> d -> z) -> Tuple4 a b c d -> z
@@ -214,7 +214,7 @@ module Data.Tuple.Nested where
 
   -- | Given a function that accepts a 4-tuple, return a function of 4 arguments.
   curry4 :: forall a b c d z. (Tuple4 a b c d -> z) -> a -> b -> c -> d -> z
-  curry4 f a b c d = f (entuple4 a b c d)
+  curry4 f a b c d = f (tuple4 a b c d)
 
   -- | Given a function of 5 arguments, return a function that accepts a 5-tuple.
   uncurry5 :: forall a b c d e z. (a -> b -> c -> d -> e -> z) -> Tuple5 a b c d e -> z
@@ -222,7 +222,7 @@ module Data.Tuple.Nested where
 
   -- | Given a function that accepts a 5-tuple, return a function of 5 arguments.
   curry5 :: forall a b c d e z. (Tuple5 a b c d e -> z) -> a -> b -> c -> d -> e -> z
-  curry5 f a b c d e = f (entuple5 a b c d e)
+  curry5 f a b c d e = f (tuple5 a b c d e)
 
   -- | Given a function of 6 arguments, return a function that accepts a 6-tuple.
   uncurry6 :: forall a b c d e f z. (a -> b -> c -> d -> e -> f -> z) -> Tuple6 a b c d e f -> z
@@ -230,7 +230,7 @@ module Data.Tuple.Nested where
 
   -- | Given a function that accepts a 6-tuple, return a function of 6 arguments.
   curry6 :: forall a b c d e f z. (Tuple6 a b c d e f -> z) -> a -> b -> c -> d -> e -> f -> z
-  curry6 f' a b c d e f = f' (entuple6 a b c d e f)
+  curry6 f' a b c d e f = f' (tuple6 a b c d e f)
 
   -- | Given a function of 7 arguments, return a function that accepts a 7-tuple.
   uncurry7 :: forall a b c d e f g z. (a -> b -> c -> d -> e -> f -> g -> z) -> Tuple7 a b c d e f g -> z
@@ -238,7 +238,7 @@ module Data.Tuple.Nested where
 
   -- | Given a function that accepts a 7-tuple, return a function of 7 arguments.
   curry7 :: forall a b c d e f g z. (Tuple7 a b c d e f g -> z) -> a -> b -> c -> d -> e -> f -> g -> z
-  curry7 f' a b c d e f g = f' (entuple7 a b c d e f g)
+  curry7 f' a b c d e f g = f' (tuple7 a b c d e f g)
 
   -- | Given a function of 8 arguments, return a function that accepts a 8-tuple.
   uncurry8 :: forall a b c d e f g h z. (a -> b -> c -> d -> e -> f -> g -> h -> z) -> Tuple8 a b c d e f g h -> z
@@ -246,7 +246,7 @@ module Data.Tuple.Nested where
 
   -- | Given a function that accepts a 8-tuple, return a function of 8 arguments.
   curry8 :: forall a b c d e f g h z. (Tuple8 a b c d e f g h -> z) -> a -> b -> c -> d -> e -> f -> g -> h -> z
-  curry8 f' a b c d e f g h = f' (entuple8 a b c d e f g h)
+  curry8 f' a b c d e f g h = f' (tuple8 a b c d e f g h)
 
   -- | Given a function of 9 arguments, return a function that accepts a 9-tuple.
   uncurry9 :: forall a b c d e f g h i z. (a -> b -> c -> d -> e -> f -> g -> h -> i -> z) -> Tuple9 a b c d e f g h i -> z
@@ -254,7 +254,7 @@ module Data.Tuple.Nested where
 
   -- | Given a function that accepts a 9-tuple, return a function of 9 arguments.
   curry9 :: forall a b c d e f g h i z. (Tuple9 a b c d e f g h i -> z) -> a -> b -> c -> d -> e -> f -> g -> h -> i -> z
-  curry9 f' a b c d e f g h i = f' (entuple9 a b c d e f g h i)
+  curry9 f' a b c d e f g h i = f' (tuple9 a b c d e f g h i)
 
   -- | Given a function of 10 arguments, return a function that accepts a 10-tuple.
   uncurry10 :: forall a b c d e f g h i j z. (a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> z) -> Tuple10 a b c d e f g h i j -> z
@@ -262,7 +262,7 @@ module Data.Tuple.Nested where
 
   -- | Given a function that accepts a 10-tuple, return a function of 10 arguments.
   curry10 :: forall a b c d e f g h i j z. (Tuple10 a b c d e f g h i j -> z) -> a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> z
-  curry10 f' a b c d e f g h i j = f' (entuple10 a b c d e f g h i j)
+  curry10 f' a b c d e f g h i j = f' (tuple10 a b c d e f g h i j)
 
   infixl 6 /\
 

@@ -273,74 +273,74 @@ type Tuple10 a b c d e f g h i z = Tuple (Tuple9 a b c d e f g h i) z
 ```
 
 
-#### `entuple2`
+#### `tuple2`
 
 ``` purescript
-entuple2 :: forall a b. a -> b -> Tuple2 a b
+tuple2 :: forall a b. a -> b -> Tuple2 a b
 ```
 
 Given 2 values, creates a nested 2-tuple.
 
-#### `entuple3`
+#### `tuple3`
 
 ``` purescript
-entuple3 :: forall a b c. a -> b -> c -> Tuple3 a b c
+tuple3 :: forall a b c. a -> b -> c -> Tuple3 a b c
 ```
 
 Given 3 values, creates a nested 3-tuple.
 
-#### `entuple4`
+#### `tuple4`
 
 ``` purescript
-entuple4 :: forall a b c d. a -> b -> c -> d -> Tuple4 a b c d
+tuple4 :: forall a b c d. a -> b -> c -> d -> Tuple4 a b c d
 ```
 
 Given 4 values, creates a nested 4-tuple.
 
-#### `entuple5`
+#### `tuple5`
 
 ``` purescript
-entuple5 :: forall a b c d e. a -> b -> c -> d -> e -> Tuple5 a b c d e
+tuple5 :: forall a b c d e. a -> b -> c -> d -> e -> Tuple5 a b c d e
 ```
 
 Given 5 values, creates a nested 5-tuple.
 
-#### `entuple6`
+#### `tuple6`
 
 ``` purescript
-entuple6 :: forall a b c d e f. a -> b -> c -> d -> e -> f -> Tuple6 a b c d e f
+tuple6 :: forall a b c d e f. a -> b -> c -> d -> e -> f -> Tuple6 a b c d e f
 ```
 
 Given 6 values, creates a nested 6-tuple.
 
-#### `entuple7`
+#### `tuple7`
 
 ``` purescript
-entuple7 :: forall a b c d e f g. a -> b -> c -> d -> e -> f -> g -> Tuple7 a b c d e f g
+tuple7 :: forall a b c d e f g. a -> b -> c -> d -> e -> f -> g -> Tuple7 a b c d e f g
 ```
 
 Given 7 values, creates a nested 7-tuple.
 
-#### `entuple8`
+#### `tuple8`
 
 ``` purescript
-entuple8 :: forall a b c d e f g h. a -> b -> c -> d -> e -> f -> g -> h -> Tuple8 a b c d e f g h
+tuple8 :: forall a b c d e f g h. a -> b -> c -> d -> e -> f -> g -> h -> Tuple8 a b c d e f g h
 ```
 
 Given 8 values, creates a nested 8-tuple.
 
-#### `entuple9`
+#### `tuple9`
 
 ``` purescript
-entuple9 :: forall a b c d e f g h i. a -> b -> c -> d -> e -> f -> g -> h -> i -> Tuple9 a b c d e f g h i
+tuple9 :: forall a b c d e f g h i. a -> b -> c -> d -> e -> f -> g -> h -> i -> Tuple9 a b c d e f g h i
 ```
 
 Given 9 values, creates a nested 9-tuple.
 
-#### `entuple10`
+#### `tuple10`
 
 ``` purescript
-entuple10 :: forall a b c d e f g h i j. a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> Tuple10 a b c d e f g h i j
+tuple10 :: forall a b c d e f g h i j. a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> Tuple10 a b c d e f g h i j
 ```
 
 Given 10 values, creates a nested 10-tuple.
