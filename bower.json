@@ -16,6 +16,7 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-arrays": "~0.4.0"
+    "purescript-arrays": "~0.4.0",
+    "purescript-bifunctors": "~0.4.0"
   }
 }

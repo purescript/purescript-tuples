@@ -6,6 +6,9 @@ import Control.Extend (Extend)
 import Control.Lazy (Lazy, defer)
 import Data.Array (zipWith)
 import Data.Monoid (Monoid, mempty)
+import Data.Bifunctor (Bifunctor)
+import Control.Biapply (Biapply)
+import Control.Biapplicative (Biapplicative)
 
 -- | A simple product type for wrapping a pair of component values.
 data Tuple a b = Tuple a b
@@ -58,6 +61,9 @@ instance monoidTuple :: (Monoid a, Monoid b) => Monoid (Tuple a b) where
 instance functorTuple :: Functor (Tuple a) where
   (<$>) f (Tuple x y) = Tuple x (f y)
 
+instance bifunctorTuple :: Bifunctor Tuple where
+  bimap f g (Tuple x y) = Tuple (f x) (g y)
+
 -- | The `Functor` instance allows functions to transform the contents of a
 -- | `Tuple` with the `<*>` operator whenever there is a `Semigroup` instance
 -- | for the `fst` component, so:
@@ -67,8 +73,14 @@ instance functorTuple :: Functor (Tuple a) where
 instance applyTuple :: (Semigroup a) => Apply (Tuple a) where
   (<*>) (Tuple a1 f) (Tuple a2 x) = Tuple (a1 <> a2) (f x)
 
+instance biapplyTuple :: Biapply Tuple where
+  (<<*>>) (Tuple f g) (Tuple a b) = Tuple (f a) (g b)
+
 instance applicativeTuple :: (Monoid a) => Applicative (Tuple a) where
   pure = Tuple mempty
+
+instance biapplicativeTuple :: Biapplicative Tuple where
+  bipure = Tuple
 
 instance bindTuple :: (Semigroup a) => Bind (Tuple a) where
   (>>=) (Tuple a1 b) f = case f b of

@@ -90,6 +90,13 @@ component, so:
 f <$> (Tuple x y) = Tuple x (f y)
 ````
 
+#### `bifunctorTuple`
+
+``` purescript
+instance bifunctorTuple :: Bifunctor Tuple
+```
+
+
 #### `applyTuple`
 
 ``` purescript
@@ -103,10 +110,24 @@ for the `fst` component, so:
 (Tuple a1 f) <*> (Tuple a2 x) == Tuple (a1 <> a2) (f x)
 ```
 
+#### `biapplyTuple`
+
+``` purescript
+instance biapplyTuple :: Biapply Tuple
+```
+
+
 #### `applicativeTuple`
 
 ``` purescript
 instance applicativeTuple :: (Monoid a) => Applicative (Tuple a)
+```
+
+
+#### `biapplicativeTuple`
+
+``` purescript
+instance biapplicativeTuple :: Biapplicative Tuple
 ```
 
 
