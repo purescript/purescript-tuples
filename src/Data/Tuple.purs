@@ -1,11 +1,11 @@
 -- | A data type and functions for working with ordered pairs and sequences of values.
 module Data.Tuple where
 
-import Control.Comonad
-import Control.Extend
-import Control.Lazy
-import Data.Array
-import Data.Monoid
+import Control.Comonad (Comonad)
+import Control.Extend (Extend)
+import Control.Lazy (Lazy, defer)
+import Data.Array (zipWith)
+import Data.Monoid (Monoid, mempty)
 
 -- | A simple product type for wrapping a pair of component values.
 data Tuple a b = Tuple a b
