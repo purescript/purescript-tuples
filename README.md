@@ -12,4 +12,5 @@ bower install purescript-tuples
 
 ## Module documentation
 
-[`docs/MODULE.md`](docs/MODULE.md)
+- [Data.Tuple](docs/Data.Tuple.md)
+- [Data.Tuple.Nested](docs/Data.Tuple.Nested.md)

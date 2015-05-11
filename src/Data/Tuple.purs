@@ -1,14 +1,20 @@
--- | A data type and functions for working with ordered pairs and sequences of values.
+-- | A data type and functions for working with ordered pairs.
 module Data.Tuple where
 
+import Control.Biapplicative (Biapplicative)
+import Control.Biapply (Biapply)
 import Control.Comonad (Comonad)
 import Control.Extend (Extend)
 import Control.Lazy (Lazy, defer)
-import Data.Array (zipWith)
-import Data.Monoid (Monoid, mempty)
+import Data.Bifoldable (Bifoldable)
 import Data.Bifunctor (Bifunctor)
-import Control.Biapply (Biapply)
-import Control.Biapplicative (Biapplicative)
+import Data.Bitraversable (Bitraversable)
+import Data.Foldable (Foldable, foldMap)
+import Data.Functor.Invariant (Invariant, imapF)
+import Data.Maybe (Maybe(..))
+import Data.Maybe.First (First(..), runFirst)
+import Data.Monoid (Monoid, mempty)
+import Data.Traversable (Traversable)
 
 -- | A simple product type for wrapping a pair of component values.
 data Tuple a b = Tuple a b
@@ -21,8 +27,7 @@ instance showTuple :: (Show a, Show b) => Show (Tuple a b) where
 -- | Allows `Tuple`s to be checked for equality with `==` and `/=` whenever
 -- | there are `Eq` instances for both component types.
 instance eqTuple :: (Eq a, Eq b) => Eq (Tuple a b) where
-  (==) (Tuple a1 b1) (Tuple a2 b2) = a1 == a2 && b1 == b2
-  (/=) t1 t2 = not (t1 == t2)
+  eq (Tuple a1 b1) (Tuple a2 b2) = a1 == a2 && b1 == b2
 
 -- | Allows `Tuple`s to be compared with `compare`, `>`, `>=`, `<` and `<=`
 -- | whenever there are `Ord` instances for both component types. To obtain
@@ -38,7 +43,7 @@ instance boundedTuple :: (Bounded a, Bounded b) => Bounded (Tuple a b) where
   bottom = Tuple bottom bottom
 
 instance semigroupoidTuple :: Semigroupoid Tuple where
-  (<<<) (Tuple _ c) (Tuple a _) = Tuple a c
+  compose (Tuple _ c) (Tuple a _) = Tuple a c
 
 -- | The `Semigroup` instance enables use of the associative operator `<>` on
 -- | `Tuple`s whenever there are `Semigroup` instances for the component
@@ -47,7 +52,7 @@ instance semigroupoidTuple :: Semigroupoid Tuple where
 -- | (Tuple a1 b1) <> (Tuple a2 b2) = Tuple (a1 <> a2) (b1 <> b2)
 -- | ```
 instance semigroupTuple :: (Semigroup a, Semigroup b) => Semigroup (Tuple a b) where
-  (<>) (Tuple a1 b1) (Tuple a2 b2) = Tuple (a1 <> a2) (b1 <> b2)
+  append (Tuple a1 b1) (Tuple a2 b2) = Tuple (a1 <> a2) (b1 <> b2)
 
 instance monoidTuple :: (Monoid a, Monoid b) => Monoid (Tuple a b) where
   mempty = Tuple mempty mempty
@@ -59,7 +64,10 @@ instance monoidTuple :: (Monoid a, Monoid b) => Monoid (Tuple a b) where
 -- | f <$> (Tuple x y) = Tuple x (f y)
 -- | ````
 instance functorTuple :: Functor (Tuple a) where
-  (<$>) f (Tuple x y) = Tuple x (f y)
+  map f (Tuple x y) = Tuple x (f y)
+
+instance invariantTuple :: Invariant (Tuple a) where
+  imap = imapF
 
 instance bifunctorTuple :: Bifunctor Tuple where
   bimap f g (Tuple x y) = Tuple (f x) (g y)
@@ -71,10 +79,10 @@ instance bifunctorTuple :: Bifunctor Tuple where
 -- | (Tuple a1 f) <*> (Tuple a2 x) == Tuple (a1 <> a2) (f x)
 -- | ```
 instance applyTuple :: (Semigroup a) => Apply (Tuple a) where
-  (<*>) (Tuple a1 f) (Tuple a2 x) = Tuple (a1 <> a2) (f x)
+  apply (Tuple a1 f) (Tuple a2 x) = Tuple (a1 <> a2) (f x)
 
 instance biapplyTuple :: Biapply Tuple where
-  (<<*>>) (Tuple f g) (Tuple a b) = Tuple (f a) (g b)
+  biapply (Tuple f g) (Tuple a b) = Tuple (f a) (g b)
 
 instance applicativeTuple :: (Monoid a) => Applicative (Tuple a) where
   pure = Tuple mempty
@@ -83,19 +91,37 @@ instance biapplicativeTuple :: Biapplicative Tuple where
   bipure = Tuple
 
 instance bindTuple :: (Semigroup a) => Bind (Tuple a) where
-  (>>=) (Tuple a1 b) f = case f b of
+  bind (Tuple a1 b) f = case f b of
     Tuple a2 c -> Tuple (a1 <> a2) c
 
 instance monadTuple :: (Monoid a) => Monad (Tuple a)
 
 instance extendTuple :: Extend (Tuple a) where
-  (<<=) f t@(Tuple a b) = Tuple a (f t)
+  extend f t@(Tuple a b) = Tuple a (f t)
 
 instance comonadTuple :: Comonad (Tuple a) where
   extract = snd
 
 instance lazyTuple :: (Lazy a, Lazy b) => Lazy (Tuple a b) where
   defer f = Tuple (defer $ \_ -> fst (f unit)) (defer $ \_ -> snd (f unit))
+
+instance foldableTuple :: Foldable (Tuple a) where
+  foldr f z (Tuple _ x) = f x z
+  foldl f z (Tuple _ x) = f z x
+  foldMap f (Tuple _ x) = f x
+
+instance bifoldableTuple :: Bifoldable Tuple where
+  bifoldMap f g (Tuple a b) = f a <> g b
+  bifoldr f g z (Tuple a b) = f a (g b z)
+  bifoldl f g z (Tuple a b) = g (f z a) b
+
+instance traversableTuple :: Traversable (Tuple a) where
+  traverse f (Tuple x y) = Tuple x <$> f y
+  sequence (Tuple x y) = Tuple x <$> y
+
+instance bitraversableTuple :: Bitraversable Tuple where
+  bitraverse f g (Tuple a b) = Tuple <$> f a <*> g b
+  bisequence (Tuple a b) = Tuple <$> a <*> b
 
 -- | Returns the first component of a tuple.
 fst :: forall a b. Tuple a b -> a
@@ -113,18 +139,10 @@ curry f a b = f (Tuple a b)
 uncurry :: forall a b c. (a -> b -> c) -> Tuple a b -> c
 uncurry f (Tuple a b) = f a b
 
--- | Rakes two lists and returns a list of corresponding pairs.
--- | If one input list is short, excess elements of the longer list are discarded.
-zip :: forall a b. [a] -> [b] -> [Tuple a b]
-zip = zipWith Tuple
-
--- | Transforms a list of pairs into a list of first components and a list of
--- | second components.
-unzip :: forall a b. [Tuple a b] -> Tuple [a] [b]
-unzip ((Tuple a b):ts) = case unzip ts of
-  Tuple as bs -> Tuple (a : as) (b : bs)
-unzip [] = Tuple [] []
-
 -- | Exchange the first and second components of a tuple.
 swap :: forall a b. Tuple a b -> Tuple b a
 swap (Tuple a b) = Tuple b a
+
+-- | Lookup a value in a data structure of `Tuple`s, generalizing association lists.
+lookup :: forall a b f. (Foldable f, Eq a) => a -> f (Tuple a b) -> Maybe b
+lookup a f = runFirst $ foldMap (\(Tuple a' b) -> First (if a == a' then Just b else Nothing)) f
