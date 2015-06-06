@@ -1,6 +1,8 @@
 -- | A data type and functions for working with ordered pairs.
 module Data.Tuple where
 
+import Prelude
+
 import Control.Biapplicative (Biapplicative)
 import Control.Biapply (Biapply)
 import Control.Comonad (Comonad)

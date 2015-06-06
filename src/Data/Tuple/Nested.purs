@@ -23,6 +23,8 @@
 -- | ```
 module Data.Tuple.Nested where
 
+import Prelude
+
 import Data.Tuple
 
 type Tuple2 a z = Tuple a z
