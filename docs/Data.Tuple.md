@@ -9,15 +9,24 @@ data Tuple a b
   = Tuple a b
 ```
 
+A simple product type for wrapping a pair of component values.
+
 ##### Instances
 ``` purescript
 instance showTuple :: (Show a, Show b) => Show (Tuple a b)
 instance eqTuple :: (Eq a, Eq b) => Eq (Tuple a b)
 instance ordTuple :: (Ord a, Ord b) => Ord (Tuple a b)
 instance boundedTuple :: (Bounded a, Bounded b) => Bounded (Tuple a b)
+instance boundedOrdTuple :: (BoundedOrd a, BoundedOrd b) => BoundedOrd (Tuple a b)
 instance semigroupoidTuple :: Semigroupoid Tuple
 instance semigroupTuple :: (Semigroup a, Semigroup b) => Semigroup (Tuple a b)
 instance monoidTuple :: (Monoid a, Monoid b) => Monoid (Tuple a b)
+instance semiringTuple :: (Semiring a, Semiring b) => Semiring (Tuple a b)
+instance moduloSemiringTuple :: (ModuloSemiring a, ModuloSemiring b) => ModuloSemiring (Tuple a b)
+instance ringTuple :: (Ring a, Ring b) => Ring (Tuple a b)
+instance divisionRingTuple :: (DivisionRing a, DivisionRing b) => DivisionRing (Tuple a b)
+instance numTuple :: (Num a, Num b) => Num (Tuple a b)
+instance booleanAlgebraTuple :: (BooleanAlgebra a, BooleanAlgebra b) => BooleanAlgebra (Tuple a b)
 instance functorTuple :: Functor (Tuple a)
 instance invariantTuple :: Invariant (Tuple a)
 instance bifunctorTuple :: Bifunctor Tuple
@@ -35,8 +44,6 @@ instance bifoldableTuple :: Bifoldable Tuple
 instance traversableTuple :: Traversable (Tuple a)
 instance bitraversableTuple :: Bitraversable Tuple
 ```
-
-A simple product type for wrapping a pair of component values.
 
 #### `fst`
 
