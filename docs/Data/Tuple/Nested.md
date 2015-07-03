@@ -300,6 +300,8 @@ Given a function that accepts a 10-tuple, return a function of 10 arguments.
 (/\) :: forall a b. a -> b -> Tuple a b
 ```
 
+_left-associative / precedence 6_
+
 Shorthand for constructing n-tuples as nested pairs.
 `a /\ b /\ c /\ d` becomes `Tuple (Tuple (Tuple a b) c ) d`
 
