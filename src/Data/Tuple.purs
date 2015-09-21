@@ -172,3 +172,11 @@ swap (Tuple a b) = Tuple b a
 -- | Lookup a value in a data structure of `Tuple`s, generalizing association lists.
 lookup :: forall a b f. (Foldable f, Eq a) => a -> f (Tuple a b) -> Maybe b
 lookup a f = runFirst $ foldMap (\(Tuple a' b) -> First (if a == a' then Just b else Nothing)) f
+
+-- | Fanout: send the input to both argument functions and combine their output.
+(&&&) :: forall a b c. (a -> b) -> (a -> c) -> a -> Tuple b c
+(&&&) f g a = Tuple (f a) (g a)
+
+-- | Split the input between the two argument functions and combine their output
+(***) :: forall a b c d. (a -> c) -> (b -> d) -> Tuple a b -> Tuple c d
+(***) f g (Tuple a b) = Tuple (f a) (g b)
