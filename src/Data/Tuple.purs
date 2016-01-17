@@ -1,22 +1,42 @@
 -- | A data type and functions for working with ordered pairs.
 module Data.Tuple where
 
-import Prelude
+import Control.Applicative (class Applicative)
+import Control.Apply (class Apply, (<*>))
+import Control.Biapplicative (class Biapplicative)
+import Control.Biapply (class Biapply)
+import Control.Bind (class Bind)
+import Control.Comonad (class Comonad)
+import Control.Extend (class Extend)
+import Control.Lazy (class Lazy, defer)
+import Control.Monad (class Monad)
+import Control.Semigroupoid (class Semigroupoid)
 
-import Control.Biapplicative (Biapplicative)
-import Control.Biapply (Biapply)
-import Control.Comonad (Comonad)
-import Control.Extend (Extend)
-import Control.Lazy (Lazy, defer)
-import Data.Bifoldable (Bifoldable)
-import Data.Bifunctor (Bifunctor)
-import Data.Bitraversable (Bitraversable)
-import Data.Foldable (Foldable, foldMap)
-import Data.Functor.Invariant (Invariant, imapF)
+import Data.Bifoldable (class Bifoldable)
+import Data.Bifunctor (class Bifunctor)
+import Data.Bitraversable (class Bitraversable)
+import Data.BooleanAlgebra (class BooleanAlgebra, conj, disj, not, (&&))
+import Data.Bounded (class Bounded, top, bottom)
+import Data.BoundedOrd (class BoundedOrd)
+import Data.DivisionRing (class DivisionRing)
+import Data.Eq (class Eq, (==))
+import Data.Foldable (class Foldable, foldMap)
+import Data.Function (($))
+import Data.Functor (class Functor, (<$>))
+import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..), runFirst)
-import Data.Monoid (Monoid, mempty)
-import Data.Traversable (Traversable)
+import Data.ModuloSemiring (class ModuloSemiring, mod, div)
+import Data.Monoid (class Monoid, mempty)
+import Data.Num (class Num)
+import Data.Ord (class Ord, compare)
+import Data.Ordering (Ordering(..))
+import Data.Ring (class Ring, sub)
+import Data.Semigroup (class Semigroup, (<>))
+import Data.Semiring (class Semiring, add, mul, one, zero)
+import Data.Show (class Show, show)
+import Data.Traversable (class Traversable)
+import Data.Unit (unit)
 
 -- | A simple product type for wrapping a pair of component values.
 data Tuple a b = Tuple a b
@@ -24,7 +44,7 @@ data Tuple a b = Tuple a b
 -- | Allows `Tuple`s to be rendered as a string with `show` whenever there are
 -- | `Show` instances for both component types.
 instance showTuple :: (Show a, Show b) => Show (Tuple a b) where
-  show (Tuple a b) = "Tuple (" ++ show a ++ ") (" ++ show b ++ ")"
+  show (Tuple a b) = "(Tuple " <> show a <> " " <> show b <> ")"
 
 -- | Allows `Tuple`s to be checked for equality with `==` and `/=` whenever
 -- | there are `Eq` instances for both component types.

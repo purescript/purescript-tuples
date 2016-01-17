@@ -23,9 +23,11 @@
 -- | ```
 module Data.Tuple.Nested where
 
-import Prelude
+import Data.Tuple (Tuple(..))
 
-import Data.Tuple
+-- | Shorthand for constructing n-tuples as nested pairs.
+-- | `a /\ b /\ c /\ d` becomes `Tuple (Tuple (Tuple a b) c ) d`
+infixl 6 Tuple as /\
 
 type Tuple2 a z = Tuple a z
 type Tuple3 a b z = Tuple (Tuple2 a b) z
@@ -37,7 +39,7 @@ type Tuple8 a b c d e f g z = Tuple (Tuple7 a b c d e f g) z
 type Tuple9 a b c d e f g h z = Tuple (Tuple8 a b c d e f g h) z
 type Tuple10 a b c d e f g h i z = Tuple (Tuple9 a b c d e f g h i) z
 
--- | Given 2 values, creates a nested 2-tuple.
+-- | Given 2 values, creates a 2-tuple.
 tuple2 :: forall a b. a -> b -> Tuple2 a b
 tuple2 = Tuple
 
@@ -144,10 +146,3 @@ uncurry10 f' (Tuple (Tuple (Tuple (Tuple (Tuple (Tuple (Tuple (Tuple (Tuple a b)
 -- | Given a function that accepts a 10-tuple, return a function of 10 arguments.
 curry10 :: forall a b c d e f g h i j z. (Tuple10 a b c d e f g h i j -> z) -> a -> b -> c -> d -> e -> f -> g -> h -> i -> j -> z
 curry10 f' a b c d e f g h i j = f' (Tuple (Tuple (Tuple (Tuple (Tuple (Tuple (Tuple (Tuple (Tuple a b) c) d) e) f) g) h) i) j)
-
-infixl 6 /\
-
--- | Shorthand for constructing n-tuples as nested pairs.
--- | `a /\ b /\ c /\ d` becomes `Tuple (Tuple (Tuple a b) c ) d`
-(/\) :: forall a b. a -> b -> Tuple a b
-(/\) a b = Tuple a b

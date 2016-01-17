@@ -12,7 +12,6 @@ Tuple data type and utility functions.
 bower install purescript-tuples
 ```
 
-## Module documentation
+## Documentation
 
-- [Data.Tuple](docs/Data/Tuple.md)
-- [Data.Tuple.Nested](docs/Data/Tuple/Nested.md)
+Module documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-tuples).
