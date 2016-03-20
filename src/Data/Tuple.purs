@@ -15,23 +15,21 @@ import Control.Semigroupoid (class Semigroupoid)
 import Data.Bifoldable (class Bifoldable)
 import Data.Bifunctor (class Bifunctor)
 import Data.Bitraversable (class Bitraversable)
-import Data.BooleanAlgebra (class BooleanAlgebra, conj, disj, not, (&&))
+import Data.BooleanAlgebra (class BooleanAlgebra)
 import Data.Bounded (class Bounded, top, bottom)
-import Data.BoundedOrd (class BoundedOrd)
-import Data.DivisionRing (class DivisionRing)
 import Data.Eq (class Eq, (==))
 import Data.Foldable (class Foldable, foldMap)
 import Data.Function (($))
 import Data.Functor (class Functor, (<$>))
 import Data.Functor.Invariant (class Invariant, imapF)
+import Data.HeytingAlgebra (class HeytingAlgebra, tt, ff, implies, conj, disj, not, (&&))
 import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..), runFirst)
-import Data.ModuloSemiring (class ModuloSemiring, mod, div)
 import Data.Monoid (class Monoid, mempty)
-import Data.Num (class Num)
 import Data.Ord (class Ord, compare)
 import Data.Ordering (Ordering(..))
 import Data.Ring (class Ring, sub)
+import Data.CommutativeRing (class CommutativeRing)
 import Data.Semigroup (class Semigroup, (<>))
 import Data.Semiring (class Semiring, add, mul, one, zero)
 import Data.Show (class Show, show)
@@ -64,8 +62,6 @@ instance boundedTuple :: (Bounded a, Bounded b) => Bounded (Tuple a b) where
   top = Tuple top top
   bottom = Tuple bottom bottom
 
-instance boundedOrdTuple :: (BoundedOrd a, BoundedOrd b) => BoundedOrd (Tuple a b)
-
 instance semigroupoidTuple :: Semigroupoid Tuple where
   compose (Tuple _ c) (Tuple a _) = Tuple a c
 
@@ -87,21 +83,20 @@ instance semiringTuple :: (Semiring a, Semiring b) => Semiring (Tuple a b) where
   mul (Tuple x1 y1) (Tuple x2 y2) = Tuple (mul x1 x2) (mul y1 y2)
   zero = Tuple zero zero
 
-instance moduloSemiringTuple :: (ModuloSemiring a, ModuloSemiring b) => ModuloSemiring (Tuple a b) where
-  div (Tuple x1 y1) (Tuple x2 y2) = Tuple (div x1 x2) (div y1 y2)
-  mod (Tuple x1 y1) (Tuple x2 y2) = Tuple (mod x1 x2) (mod y1 y2)
-
 instance ringTuple :: (Ring a, Ring b) => Ring (Tuple a b) where
   sub (Tuple x1 y1) (Tuple x2 y2) = Tuple (sub x1 x2) (sub y1 y2)
 
-instance divisionRingTuple :: (DivisionRing a, DivisionRing b) => DivisionRing (Tuple a b)
+instance commutativeRingTuple :: (CommutativeRing a, CommutativeRing b) => CommutativeRing (Tuple a b)
 
-instance numTuple :: (Num a, Num b) => Num (Tuple a b)
-
-instance booleanAlgebraTuple :: (BooleanAlgebra a, BooleanAlgebra b) => BooleanAlgebra (Tuple a b) where
+instance heytingAlgebraTuple :: (HeytingAlgebra a, HeytingAlgebra b) => HeytingAlgebra (Tuple a b) where
+  tt = Tuple tt tt
+  ff = Tuple ff ff
+  implies (Tuple x1 y1) (Tuple x2 y2) = Tuple (x1 `implies` x2) (y1 `implies` y2)
   conj (Tuple x1 y1) (Tuple x2 y2) = Tuple (conj x1 x2) (conj y1 y2)
   disj (Tuple x1 y1) (Tuple x2 y2) = Tuple (disj x1 x2) (disj y1 y2)
   not (Tuple x y) = Tuple (not x) (not y)
+
+instance booleanAlgebraTuple :: (BooleanAlgebra a, BooleanAlgebra b) => BooleanAlgebra (Tuple a b)
 
 -- | The `Functor` instance allows functions to transform the contents of a
 -- | `Tuple` with the `<$>` operator, applying the function to the second
