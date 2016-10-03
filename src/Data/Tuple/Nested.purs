@@ -29,7 +29,7 @@ import Data.Tuple (Tuple(..))
 -- | `a /\ b /\ c /\ d` becomes `Tuple (Tuple (Tuple a b) c ) d`
 infixl 6 Tuple as /\
 
-type Tuple2 a b = Tuple a b
+type Tuple2 = Tuple
 type Tuple3 a b c = Tuple a (Tuple2 b c)
 type Tuple4 a b c d = Tuple a (Tuple3 b c d)
 type Tuple5 a b c d e = Tuple a (Tuple4 b c d e)
