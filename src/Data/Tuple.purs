@@ -1,40 +1,25 @@
 -- | A data type and functions for working with ordered pairs.
 module Data.Tuple where
 
-import Control.Applicative (class Applicative)
-import Control.Apply (class Apply, (<*>))
+import Prelude
+
 import Control.Biapplicative (class Biapplicative)
 import Control.Biapply (class Biapply)
-import Control.Bind (class Bind)
 import Control.Comonad (class Comonad)
 import Control.Extend (class Extend)
 import Control.Lazy (class Lazy, defer)
-import Control.Monad (class Monad)
-import Control.Semigroupoid (class Semigroupoid)
 
 import Data.Bifoldable (class Bifoldable)
 import Data.Bifunctor (class Bifunctor)
 import Data.Bitraversable (class Bitraversable)
-import Data.BooleanAlgebra (class BooleanAlgebra)
-import Data.Bounded (class Bounded, top, bottom)
-import Data.Eq (class Eq, (==))
 import Data.Foldable (class Foldable, foldMap)
-import Data.Function (($))
-import Data.Functor (class Functor, (<$>))
 import Data.Functor.Invariant (class Invariant, imapF)
-import Data.HeytingAlgebra (class HeytingAlgebra, tt, ff, implies, conj, disj, not, (&&))
+import Data.HeytingAlgebra (implies, ff, tt)
 import Data.Maybe (Maybe(..))
-import Data.Maybe.First (First(..), runFirst)
+import Data.Maybe.First (First(..))
 import Data.Monoid (class Monoid, mempty)
-import Data.Ord (class Ord, compare)
-import Data.Ordering (Ordering(..))
-import Data.Ring (class Ring, sub)
-import Data.CommutativeRing (class CommutativeRing)
-import Data.Semigroup (class Semigroup, (<>))
-import Data.Semiring (class Semiring, add, mul, one, zero)
-import Data.Show (class Show, show)
+import Data.Newtype (unwrap)
 import Data.Traversable (class Traversable)
-import Data.Unit (unit)
 
 -- | A simple product type for wrapping a pair of component values.
 data Tuple a b = Tuple a b
@@ -46,17 +31,13 @@ instance showTuple :: (Show a, Show b) => Show (Tuple a b) where
 
 -- | Allows `Tuple`s to be checked for equality with `==` and `/=` whenever
 -- | there are `Eq` instances for both component types.
-instance eqTuple :: (Eq a, Eq b) => Eq (Tuple a b) where
-  eq (Tuple a1 b1) (Tuple a2 b2) = a1 == a2 && b1 == b2
+derive instance eqTuple :: (Eq a, Eq b) => Eq (Tuple a b)
 
 -- | Allows `Tuple`s to be compared with `compare`, `>`, `>=`, `<` and `<=`
 -- | whenever there are `Ord` instances for both component types. To obtain
 -- | the result, the `fst`s are `compare`d, and if they are `EQ`ual, the
 -- | `snd`s are `compare`d.
-instance ordTuple :: (Ord a, Ord b) => Ord (Tuple a b) where
-  compare (Tuple a1 b1) (Tuple a2 b2) = case compare a1 a2 of
-    EQ -> compare b1 b2
-    other -> other
+derive instance ordTuple :: (Ord a, Ord b) => Ord (Tuple a b)
 
 instance boundedTuple :: (Bounded a, Bounded b) => Bounded (Tuple a b) where
   top = Tuple top top
@@ -186,4 +167,4 @@ swap (Tuple a b) = Tuple b a
 
 -- | Lookup a value in a data structure of `Tuple`s, generalizing association lists.
 lookup :: forall a b f. (Foldable f, Eq a) => a -> f (Tuple a b) -> Maybe b
-lookup a f = runFirst $ foldMap (\(Tuple a' b) -> First (if a == a' then Just b else Nothing)) f
+lookup a = unwrap <<< foldMap \(Tuple a' b) -> First (if a == a' then Just b else Nothing)
