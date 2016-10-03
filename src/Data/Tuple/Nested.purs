@@ -47,7 +47,7 @@ tuple2 = Tuple
 tuple3 :: forall a b c. a -> b -> c -> Tuple3 a b c
 tuple3 a b c = Tuple a (Tuple b c)
 
--- -- | Given 4 values, creates a nested 4-tuple.
+-- | Given 4 values, creates a nested 4-tuple.
 tuple4 :: forall a b c d. a -> b -> c -> d -> Tuple4 a b c d
 tuple4 a b c d = Tuple a (Tuple b (Tuple c d))
 
