@@ -27,7 +27,7 @@ import Prelude
 import Data.Tuple (Tuple(..))
 
 -- | Shorthand for constructing n-tuples as nested pairs.
--- | `a /\ b /\ c /\ d /\ unit` becomes `Tuple a (Tuple b (Tuple c (Tuple d (Tuple unit))))`
+-- | `a /\ b /\ c /\ d /\ unit` becomes `Tuple a (Tuple b (Tuple c (Tuple d unit)))`
 infixr 6 Tuple as /\
 
 type Tuple1 a = T2 a Unit
