@@ -30,6 +30,11 @@ import Data.Tuple (Tuple(..))
 -- | `a /\ b /\ c /\ d /\ unit` becomes `Tuple a (Tuple b (Tuple c (Tuple d unit)))`
 infixr 6 Tuple as /\
 
+-- | Shorthand for constructing n-tuple types as nested pairs.
+-- | `forall a b c d. a /\ b /\ c /\ d /\ Unit` becomes
+-- | `forall a b c d. Tuple a (Tuple b (Tuple c (Tuple d Unit)))`
+infixr 6 type Tuple as /\
+
 type Tuple1 a = T2 a Unit
 type Tuple2 a b = T3 a b Unit
 type Tuple3 a b c = T4 a b c Unit
