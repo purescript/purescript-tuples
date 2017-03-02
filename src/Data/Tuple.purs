@@ -12,6 +12,7 @@ import Control.Lazy (class Lazy, defer)
 import Data.Bifoldable (class Bifoldable)
 import Data.Bifunctor (class Bifunctor)
 import Data.Bitraversable (class Bitraversable)
+import Data.Eq (class Eq1)
 import Data.Foldable (class Foldable, foldMap)
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.HeytingAlgebra (implies, ff, tt)
@@ -19,6 +20,7 @@ import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..))
 import Data.Monoid (class Monoid, mempty)
 import Data.Newtype (unwrap)
+import Data.Ord (class Ord1)
 import Data.Traversable (class Traversable)
 
 -- | A simple product type for wrapping a pair of component values.
@@ -33,11 +35,15 @@ instance showTuple :: (Show a, Show b) => Show (Tuple a b) where
 -- | there are `Eq` instances for both component types.
 derive instance eqTuple :: (Eq a, Eq b) => Eq (Tuple a b)
 
+instance eq1Tuple :: Eq a => Eq1 (Tuple a) where eq1 = eq
+
 -- | Allows `Tuple`s to be compared with `compare`, `>`, `>=`, `<` and `<=`
 -- | whenever there are `Ord` instances for both component types. To obtain
 -- | the result, the `fst`s are `compare`d, and if they are `EQ`ual, the
 -- | `snd`s are `compare`d.
 derive instance ordTuple :: (Ord a, Ord b) => Ord (Tuple a b)
+
+instance ord1Tuple :: Ord a => Ord1 (Tuple a) where compare1 = compare
 
 instance boundedTuple :: (Bounded a, Bounded b) => Bounded (Tuple a b) where
   top = Tuple top top
