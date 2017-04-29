@@ -12,6 +12,7 @@ import Control.Lazy (class Lazy, defer)
 import Data.Bifoldable (class Bifoldable)
 import Data.Bifunctor (class Bifunctor)
 import Data.Bitraversable (class Bitraversable)
+import Data.Distributive (class Distributive, collectDefault)
 import Data.Eq (class Eq1)
 import Data.Foldable (class Foldable, foldMap)
 import Data.Functor.Invariant (class Invariant, imapF)
@@ -150,6 +151,10 @@ instance traversableTuple :: Traversable (Tuple a) where
 instance bitraversableTuple :: Bitraversable Tuple where
   bitraverse f g (Tuple a b) = Tuple <$> f a <*> g b
   bisequence (Tuple a b) = Tuple <$> a <*> b
+
+instance distributiveTuple :: Distributive (Tuple Unit) where
+  collect = collectDefault
+  distribute = Tuple unit <<< map snd
 
 -- | Returns the first component of a tuple.
 fst :: forall a b. Tuple a b -> a
