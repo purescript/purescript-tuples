@@ -24,6 +24,8 @@ import Data.Newtype (unwrap)
 import Data.Ord (class Ord1)
 import Data.Traversable (class Traversable)
 
+import Type.Equality (class TypeEquals, from)
+
 -- | A simple product type for wrapping a pair of component values.
 data Tuple a b = Tuple a b
 
@@ -152,9 +154,9 @@ instance bitraversableTuple :: Bitraversable Tuple where
   bitraverse f g (Tuple a b) = Tuple <$> f a <*> g b
   bisequence (Tuple a b) = Tuple <$> a <*> b
 
-instance distributiveTuple :: Distributive (Tuple Unit) where
+instance distributiveTuple :: TypeEquals a Unit => Distributive (Tuple a) where
   collect = collectDefault
-  distribute = Tuple unit <<< map snd
+  distribute = Tuple (from unit) <<< map snd
 
 -- | Returns the first component of a tuple.
 fst :: forall a b. Tuple a b -> a
