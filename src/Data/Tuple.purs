@@ -12,6 +12,7 @@ import Control.Lazy (class Lazy, defer)
 import Data.Bifoldable (class Bifoldable)
 import Data.Bifunctor (class Bifunctor)
 import Data.Bitraversable (class Bitraversable)
+import Data.Distributive (class Distributive, collectDefault)
 import Data.Eq (class Eq1)
 import Data.Foldable (class Foldable, foldMap)
 import Data.Functor.Invariant (class Invariant, imapF)
@@ -22,6 +23,8 @@ import Data.Monoid (class Monoid, mempty)
 import Data.Newtype (unwrap)
 import Data.Ord (class Ord1)
 import Data.Traversable (class Traversable)
+
+import Type.Equality (class TypeEquals, from)
 
 -- | A simple product type for wrapping a pair of component values.
 data Tuple a b = Tuple a b
@@ -150,6 +153,10 @@ instance traversableTuple :: Traversable (Tuple a) where
 instance bitraversableTuple :: Bitraversable Tuple where
   bitraverse f g (Tuple a b) = Tuple <$> f a <*> g b
   bisequence (Tuple a b) = Tuple <$> a <*> b
+
+instance distributiveTuple :: TypeEquals a Unit => Distributive (Tuple a) where
+  collect = collectDefault
+  distribute = Tuple (from unit) <<< map snd
 
 -- | Returns the first component of a tuple.
 fst :: forall a b. Tuple a b -> a
