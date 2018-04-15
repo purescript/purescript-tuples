@@ -17,9 +17,9 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-foldable-traversable": "^3.0.0",
-    "purescript-prelude": "^3.0.0",
-    "purescript-distributive": "^3.0.0",
-    "purescript-type-equality": "^2.1.0"
+    "purescript-foldable-traversable": "#compiler/0.12",
+    "purescript-prelude": "#compiler/0.12",
+    "purescript-distributive": "#compiler/0.12",
+    "purescript-type-equality": "#compiler/0.12"
   }
 }
