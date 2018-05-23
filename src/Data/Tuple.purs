@@ -8,7 +8,6 @@ import Control.Biapply (class Biapply)
 import Control.Comonad (class Comonad)
 import Control.Extend (class Extend)
 import Control.Lazy (class Lazy, defer)
-
 import Data.Bifoldable (class Bifoldable)
 import Data.Bifunctor (class Bifunctor)
 import Data.Bitraversable (class Bitraversable)
@@ -19,11 +18,9 @@ import Data.Functor.Invariant (class Invariant, imapF)
 import Data.HeytingAlgebra (implies, ff, tt)
 import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..))
-import Data.Monoid (class Monoid, mempty)
 import Data.Newtype (unwrap)
 import Data.Ord (class Ord1)
 import Data.Traversable (class Traversable)
-
 import Type.Equality (class TypeEquals, from)
 
 -- | A simple product type for wrapping a pair of component values.
@@ -38,7 +35,7 @@ instance showTuple :: (Show a, Show b) => Show (Tuple a b) where
 -- | there are `Eq` instances for both component types.
 derive instance eqTuple :: (Eq a, Eq b) => Eq (Tuple a b)
 
-instance eq1Tuple :: Eq a => Eq1 (Tuple a) where eq1 = eq
+derive instance eq1Tuple :: Eq a => Eq1 (Tuple a)
 
 -- | Allows `Tuple`s to be compared with `compare`, `>`, `>=`, `<` and `<=`
 -- | whenever there are `Ord` instances for both component types. To obtain
@@ -46,7 +43,7 @@ instance eq1Tuple :: Eq a => Eq1 (Tuple a) where eq1 = eq
 -- | `snd`s are `compare`d.
 derive instance ordTuple :: (Ord a, Ord b) => Ord (Tuple a b)
 
-instance ord1Tuple :: Ord a => Ord1 (Tuple a) where compare1 = compare
+derive instance ord1Tuple :: Ord a => Ord1 (Tuple a)
 
 instance boundedTuple :: (Bounded a, Bounded b) => Bounded (Tuple a b) where
   top = Tuple top top
@@ -94,8 +91,7 @@ instance booleanAlgebraTuple :: (BooleanAlgebra a, BooleanAlgebra b) => BooleanA
 -- | ```purescript
 -- | f <$> (Tuple x y) = Tuple x (f y)
 -- | ````
-instance functorTuple :: Functor (Tuple a) where
-  map f (Tuple x y) = Tuple x (f y)
+derive instance functorTuple :: Functor (Tuple a)
 
 instance invariantTuple :: Invariant (Tuple a) where
   imap = imapF
