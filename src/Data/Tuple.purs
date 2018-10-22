@@ -14,13 +14,18 @@ import Data.Bitraversable (class Bitraversable)
 import Data.Distributive (class Distributive, collectDefault)
 import Data.Eq (class Eq1)
 import Data.Foldable (class Foldable, foldMap)
+import Data.FoldableWithIndex (class FoldableWithIndex)
 import Data.Functor.Invariant (class Invariant, imapF)
+import Data.FunctorWithIndex (class FunctorWithIndex)
 import Data.HeytingAlgebra (implies, ff, tt)
 import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..))
 import Data.Newtype (unwrap)
 import Data.Ord (class Ord1)
+import Data.Semigroup.Foldable (class Foldable1)
+import Data.Semigroup.Traversable (class Traversable1)
 import Data.Traversable (class Traversable)
+import Data.TraversableWithIndex (class TraversableWithIndex)
 import Type.Equality (class TypeEquals, from)
 
 -- | A simple product type for wrapping a pair of component values.
@@ -93,6 +98,9 @@ instance booleanAlgebraTuple :: (BooleanAlgebra a, BooleanAlgebra b) => BooleanA
 -- | ````
 derive instance functorTuple :: Functor (Tuple a)
 
+instance functorWithIndexTuple :: FunctorWithIndex Unit (Tuple a) where
+  mapWithIndex f = map $ f unit
+
 instance invariantTuple :: Invariant (Tuple a) where
   imap = imapF
 
@@ -137,6 +145,15 @@ instance foldableTuple :: Foldable (Tuple a) where
   foldl f z (Tuple _ x) = f z x
   foldMap f (Tuple _ x) = f x
 
+instance foldable1Tuple :: Foldable1 (Tuple a) where
+  foldMap1 f (Tuple _ x) = f x
+  fold1 (Tuple _ x) = x
+
+instance foldableWithIndexTuple :: FoldableWithIndex Unit (Tuple a) where
+  foldrWithIndex f z (Tuple _ x) = f unit x z
+  foldlWithIndex f z (Tuple _ x) = f unit z x
+  foldMapWithIndex f (Tuple _ x) = f unit x
+
 instance bifoldableTuple :: Bifoldable Tuple where
   bifoldMap f g (Tuple a b) = f a <> g b
   bifoldr f g z (Tuple a b) = f a (g b z)
@@ -145,6 +162,13 @@ instance bifoldableTuple :: Bifoldable Tuple where
 instance traversableTuple :: Traversable (Tuple a) where
   traverse f (Tuple x y) = Tuple x <$> f y
   sequence (Tuple x y) = Tuple x <$> y
+
+instance traversable1Tuple :: Traversable1 (Tuple a) where
+  traverse1 f (Tuple x y) = Tuple x <$> f y
+  sequence1 (Tuple x y) = Tuple x <$> y
+
+instance traversableWithIndexTuple :: TraversableWithIndex Unit (Tuple a) where
+  traverseWithIndex f (Tuple x y) = Tuple x <$> f unit y
 
 instance bitraversableTuple :: Bitraversable Tuple where
   bitraverse f g (Tuple a b) = Tuple <$> f a <*> g b
