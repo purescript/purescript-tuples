@@ -23,37 +23,31 @@
 -- | ```
 -- |
 -- | All tuple functions are numbered from 1 to 10. That is, there's
--- | an `get1` and a `get10`.
+-- | a `get1` and a `get10`.
 -- |
 -- | The `getN` functions accept tuples of length N or greater:
 -- | 
 -- | ```purescript
--- | get1 tuple == 1
--- | get3 tuple == 3
--- | get4 tuple == error
+-- | get1 tuple = 1
+-- | get3 tuple = 3
+-- | get4 tuple -- type error. `get4` requires a longer tuple. 
 -- | ```
 -- | 
 -- | The same is true of the `overN` functions:
 -- | 
 -- | ```purescript
--- | over2 negate (tuple3 1 2 3) == tuple3 1 -2 3
+-- | over2 negate (tuple3 1 2 3) = tuple3 1 (-2) 3
 -- | ```
 -- |
 
 -- | `uncurryN` can be used to convert a function that takes `N` arguments to one that takes an N-tuple:
 -- | 
 -- | ```purescript
--- | (uncurry2 (+)) (tuple2 1 2) == 3
+-- | uncurry2 (+) (tuple2 1 2) = 3
 -- | ```
 -- | 
 -- | The reverse `curryN` function converts functions that take
 -- | N-tuples (which are rare) to functions that take `N` arguments.
--- |
--- | ---------------
--- | Nested tuples arise naturally in product combinators. You shouldn't
--- | represent data using nested tuples, but if combinators you're working with
--- | create them, utilities in this module will allow you to more easily work
--- | with them, including translating to and from more traditional product types.
 -- |
 -- | ---------------
 -- | In addition to types like `Tuple3`, there are also types like
