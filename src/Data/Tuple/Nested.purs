@@ -1,26 +1,62 @@
--- | Utilities for n-tuples: sequences longer than two components built from
--- | nested pairs.
+-- | Tuples that are not restricted to two elements.
 -- |
--- | Nested tuples arise naturally in product combinators. You shouldn't
--- | represent data using nested tuples, but if combinators you're working with
--- | create them, utilities in this module will allow to to more easily work
--- | with them, including translating to and from more traditional product types.
+-- | Here is an example of a 3-tuple:
 -- |
+-- | 
 -- | ```purescript
--- | data Address = Address String City (Maybe Province) Country
--- |
--- | exampleAddress1 = makeAddress "221B Baker Street" London Nothing UK
--- | exampleAddress2 = makeAddressT $ "221B Baker Street" /\ London /\ Nothing /\ UK
--- |
--- | makeAddressT :: Tuple4 String City (Maybe Province) Country -> Address
--- | makeAddressT = uncurry4 Address
--- |
--- | makeAddress :: String -> City -> (Maybe Province) -> Country -> Address
--- | makeAddress = curry4 unit makeAddressT
--- |
--- | tupleAddress :: Address -> Tuple4 String City (Maybe Province) Country
--- | tupleAddress (Address a b c d) = tuple4 a b c d
+-- | > tuple = tuple3 1 "2" 3.0
+-- | > tuple
+-- | (Tuple 1 (Tuple "2" (Tuple 3.0 unit)))
 -- | ```
+-- | 
+-- | Notice that a tuple is a nested structure not unlike a list. The type of `tuple` is this:
+-- | 
+-- | ```purescript
+-- | > :t tuple
+-- | Tuple Int (Tuple String (Tuple Number Unit))
+-- | ```
+-- | 
+-- | That, however, can be abbreviated with the `Tuple3` type:
+-- | 
+-- | ```purescript
+-- | Tuple3 Int String Number
+-- | ```
+-- |
+-- | All tuple functions are numbered from 1 to 10. That is, there's
+-- | a `get1` and a `get10`.
+-- |
+-- | The `getN` functions accept tuples of length N or greater:
+-- | 
+-- | ```purescript
+-- | get1 tuple = 1
+-- | get3 tuple = 3
+-- | get4 tuple -- type error. `get4` requires a longer tuple. 
+-- | ```
+-- | 
+-- | The same is true of the `overN` functions:
+-- | 
+-- | ```purescript
+-- | over2 negate (tuple3 1 2 3) = tuple3 1 (-2) 3
+-- | ```
+-- |
+
+-- | `uncurryN` can be used to convert a function that takes `N` arguments to one that takes an N-tuple:
+-- | 
+-- | ```purescript
+-- | uncurry2 (+) (tuple2 1 2) = 3
+-- | ```
+-- | 
+-- | The reverse `curryN` function converts functions that take
+-- | N-tuples (which are rare) to functions that take `N` arguments.
+-- |
+-- | ---------------
+-- | In addition to types like `Tuple3`, there are also types like
+-- | `T3`. Whereas `Tuple3` describes a tuple with exactly three
+-- | elements, `T3` describes a tuple of length *two or longer*. More
+-- | specifically, `T3` requires two element plus a "tail" that may be
+-- | `unit` or more tuple elements. Use types like `T3` when you want to
+-- | create a set of functions for arbitrary tuples. See the source for how that's done.
+-- | 
 module Data.Tuple.Nested where
 
 import Prelude
