@@ -107,7 +107,7 @@ instance invariantTuple :: Invariant (Tuple a) where
 instance bifunctorTuple :: Bifunctor Tuple where
   bimap f g (Tuple x y) = Tuple (f x) (g y)
 
--- | The `Functor` instance allows functions to transform the contents of a
+-- | The `Apply` instance allows functions to transform the contents of a
 -- | `Tuple` with the `<*>` operator whenever there is a `Semigroup` instance
 -- | for the `fst` component, so:
 -- | ```purescript
