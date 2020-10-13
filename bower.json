@@ -16,14 +16,14 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-bifunctors": "^4.0.0",
-    "purescript-control": "^4.0.0",
-    "purescript-distributive": "^4.0.0",
-    "purescript-foldable-traversable": "^4.0.0",
-    "purescript-invariant": "^4.0.0",
-    "purescript-maybe": "^4.0.0",
-    "purescript-newtype": "^3.0.0",
-    "purescript-prelude": "^4.0.0",
-    "purescript-type-equality": "^3.0.0"
+    "purescript-bifunctors": "master",
+    "purescript-control": "master",
+    "purescript-distributive": "master",
+    "purescript-foldable-traversable": "master",
+    "purescript-invariant": "master",
+    "purescript-maybe": "master",
+    "purescript-newtype": "master",
+    "purescript-prelude": "master",
+    "purescript-type-equality": "master"
   }
 }
