@@ -20,6 +20,7 @@
     "purescript-control": "master",
     "purescript-distributive": "master",
     "purescript-foldable-traversable": "master",
+    "purescript-generics-rep": "master",
     "purescript-invariant": "master",
     "purescript-maybe": "master",
     "purescript-newtype": "master",
