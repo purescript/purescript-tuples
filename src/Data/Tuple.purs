@@ -17,6 +17,7 @@ import Data.Foldable (class Foldable, foldMap)
 import Data.FoldableWithIndex (class FoldableWithIndex)
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.FunctorWithIndex (class FunctorWithIndex)
+import Data.Generic.Rep (class Generic)
 import Data.HeytingAlgebra (implies, ff, tt)
 import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..))
@@ -100,6 +101,8 @@ derive instance functorTuple :: Functor (Tuple a)
 
 instance functorWithIndexTuple :: FunctorWithIndex Unit (Tuple a) where
   mapWithIndex f = map $ f unit
+
+derive instance genericTuple :: Generic (Tuple a b) _
 
 instance invariantTuple :: Invariant (Tuple a) where
   imap = imapF
