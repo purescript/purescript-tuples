@@ -6,13 +6,14 @@ Notable changes to this project are documented in this file. The format is based
 
 Breaking changes:
 - Added support for PureScript 0.14 and dropped support for all previous versions (#37, #43)
-- Added `foldr1` and `foldl` implementations to `Foldable1 (Tuple a)` instance and removed `foldl1` (#39, #43)
 
 New features:
+- Added Generic instance for Tuple (#40)
 
 Bugfixes:
 
 Other improvements:
+- Added `foldr1` and `foldl1` implementations to `Foldable1 (Tuple a)` instance and removed `fold1` (#39, #43)
 - Improved and expanded documentation in the module header (#30)
 - Fixed mistaken reference to `Functor` in documentation comment for `Apply` instance (#33)
 - Migrated CI to GitHub Actions and updated installation instructions to use Spago (#42)
