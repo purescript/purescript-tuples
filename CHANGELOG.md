@@ -6,9 +6,11 @@ Notable changes to this project are documented in this file. The format is based
 
 Breaking changes:
 - Added support for PureScript 0.14 and dropped support for all previous versions (#37, #43)
+- `Data.Tuple.lookup` has been moved to `Data.Foldable.lookup` in the `purescript-foldable-traversable` package (#46)
 
 New features:
 - Added Generic instance for Tuple (#40)
+- This package no longer depends on the `purescript-bifunctors`, `purescript-distributive`, `purescript-foldable-traversable`, `purescript-maybe`, `purescript-newtype`, and `purescript-type-equality` packages. Relevant instances have been moved to those packages. (#46)
 
 Bugfixes:
 
