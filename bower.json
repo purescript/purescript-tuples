@@ -4,7 +4,7 @@
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "git://github.com/purescript/purescript-tuples.git"
+    "url": "https://github.com/purescript/purescript-tuples.git"
   },
   "ignore": [
     "**/.*",
@@ -16,8 +16,8 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-control": "master",
-    "purescript-invariant": "master",
-    "purescript-prelude": "master"
+    "purescript-control": "^5.0.0",
+    "purescript-invariant": "^5.0.0",
+    "purescript-prelude": "^5.0.0"
   }
 }
