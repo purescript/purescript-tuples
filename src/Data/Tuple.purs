@@ -106,7 +106,7 @@ instance bindTuple :: (Semigroup a) => Bind (Tuple a) where
 instance monadTuple :: (Monoid a) => Monad (Tuple a)
 
 instance extendTuple :: Extend (Tuple a) where
-  extend f t@(Tuple a b) = Tuple a (f t)
+  extend f t@(Tuple a _) = Tuple a (f t)
 
 instance comonadTuple :: Comonad (Tuple a) where
   extract = snd
