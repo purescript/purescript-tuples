@@ -6,6 +6,8 @@ import Prelude
 import Control.Comonad (class Comonad)
 import Control.Extend (class Extend)
 import Control.Lazy (class Lazy, defer)
+import Data.Debug (class Debug, debug)
+import Data.Debug.Type as D
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Generic.Rep (class Generic)
@@ -83,6 +85,9 @@ instance booleanAlgebraTuple :: (BooleanAlgebra a, BooleanAlgebra b) => BooleanA
 derive instance functorTuple :: Functor (Tuple a)
 
 derive instance genericTuple :: Generic (Tuple a b) _
+
+instance (Debug a, Debug b) => Debug (Tuple a b) where
+  debug (Tuple a b) = D.constructor "Tuple" [ debug a, debug b ]
 
 instance invariantTuple :: Invariant (Tuple a) where
   imap = imapF
