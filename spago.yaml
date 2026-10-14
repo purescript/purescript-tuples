@@ -1,0 +1,11 @@
+package:
+  name: tuples
+  description: Tuple data type and utility functions
+  build:
+    strict: true
+    pedanticPackages: true
+  dependencies:
+    - control: ">=6.0.0 <7.0.0"
+    - invariant: ">=6.0.0 <7.0.0"
+    - prelude: ">=6.0.0 <7.0.0"
+workspace: {}
