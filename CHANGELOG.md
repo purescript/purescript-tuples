@@ -12,7 +12,7 @@ Bugfixes:
 
 Other improvements:
 
-- Migrate from Bower/Pulp to Spago and update CI and formatting.
+- Migrate from Bower/Pulp to Spago and update CI and formatting (#54 by @thomashoneyman)
 
 ## [v7.0.0](https://github.com/purescript/purescript-tuples/releases/tag/v7.0.0) - 2022-04-27
 
