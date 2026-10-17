@@ -158,3 +158,5 @@ This release works with versions 0.7.\* of the PureScript compiler. It will not 
 ## [v0.1.0](https://github.com/purescript/purescript-tuples/releases/tag/v0.1.0) - 2014-04-21
 
 - Initial release
+
+[Unreleased]: https://github.com/purescript/purescript-tuples/compare/v7.0.1...HEAD
