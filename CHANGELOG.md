@@ -12,9 +12,22 @@ Bugfixes:
 
 Other improvements:
 
+## [v7.0.1](https://github.com/purescript/purescript-tuples/releases/tag/v7.0.1) - 2026-10-17
+
+Breaking changes:
+
+New features:
+
+Bugfixes:
+
+Other improvements:
+
+- Migrate from Bower/Pulp to Spago and update CI and formatting (#54 by @thomashoneyman)
+
 ## [v7.0.0](https://github.com/purescript/purescript-tuples/releases/tag/v7.0.0) - 2022-04-27
 
 Breaking changes:
+
 - Update project and deps to PureScript v0.15.0 (#50 by @JordanMartinez)
 
 New features:
@@ -26,21 +39,25 @@ Other improvements:
 ## [v6.0.1](https://github.com/purescript/purescript-tuples/releases/tag/v6.0.1) - 2021-04-27
 
 Other improvements:
+
 - Fix warnings revealed by v0.14.1 PS release (#48 by @JordanMartinez)
 
 ## [v6.0.0](https://github.com/purescript/purescript-tuples/releases/tag/v6.0.0) - 2021-02-26
 
 Breaking changes:
+
 - Added support for PureScript 0.14 and dropped support for all previous versions (#37, #43)
 - `Data.Tuple.lookup` has been moved to `Data.Foldable.lookup` in the `purescript-foldable-traversable` package (#46)
 
 New features:
+
 - Added Generic instance for Tuple (#40)
 - This package no longer depends on the `purescript-bifunctors`, `purescript-distributive`, `purescript-foldable-traversable`, `purescript-maybe`, `purescript-newtype`, and `purescript-type-equality` packages. Relevant instances have been moved to those packages. (#46)
 
 Bugfixes:
 
 Other improvements:
+
 - Added `foldr1` and `foldl1` implementations to `Foldable1 (Tuple a)` instance and removed `fold1` (#39, #43)
 - Improved and expanded documentation in the module header (#30)
 - Fixed mistaken reference to `Functor` in documentation comment for `Apply` instance (#33)
@@ -83,6 +100,7 @@ Other improvements:
 ## [v1.0.0](https://github.com/purescript/purescript-tuples/releases/tag/v1.0.0) - 2016-06-01
 
 This release is intended for the PureScript 0.9.1 compiler and newer.
+
 - Updated for new `Prelude` class hierarchies
 
 **Note**: The v1.0.0 tag is not meant to indicate the library is “finished”, the core libraries are all being bumped to this for the 0.9 compiler release so as to use semver more correctly.
@@ -110,6 +128,7 @@ This release works with versions 0.7.\* of the PureScript compiler. It will not 
 ## [v0.3.0](https://github.com/purescript/purescript-tuples/releases/tag/v0.3.0) - 2015-02-21
 
 **This release requires PureScript v0.6.8 or later**
+
 - Updated `purescript-monoid` dependency
 
 ## [v0.2.3](https://github.com/purescript/purescript-tuples/releases/tag/v0.2.3) - 2014-12-01
@@ -139,3 +158,5 @@ This release works with versions 0.7.\* of the PureScript compiler. It will not 
 ## [v0.1.0](https://github.com/purescript/purescript-tuples/releases/tag/v0.1.0) - 2014-04-21
 
 - Initial release
+
+[Unreleased]: https://github.com/purescript/purescript-tuples/compare/v7.0.1...HEAD

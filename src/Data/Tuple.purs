@@ -9,7 +9,7 @@ import Control.Lazy (class Lazy, defer)
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Generic.Rep (class Generic)
-import Data.HeytingAlgebra (implies, ff, tt)
+import Data.HeytingAlgebra (ff, implies, tt)
 import Data.Ord (class Ord1)
 
 -- | A simple product type for wrapping a pair of component values.

@@ -60,6 +60,7 @@
 module Data.Tuple.Nested where
 
 import Prelude
+
 import Data.Tuple (Tuple(..))
 
 -- | Shorthand for constructing n-tuples as nested pairs.
@@ -75,7 +76,7 @@ type Tuple1 a = T2 a Unit
 type Tuple2 a b = T3 a b Unit
 type Tuple3 a b c = T4 a b c Unit
 type Tuple4 a b c d = T5 a b c d Unit
-type Tuple5 a b c d e= T6 a b c d e Unit
+type Tuple5 a b c d e = T6 a b c d e Unit
 type Tuple6 a b c d e f = T7 a b c d e f Unit
 type Tuple7 a b c d e f g = T8 a b c d e f g Unit
 type Tuple8 a b c d e f g h = T9 a b c d e f g h Unit
